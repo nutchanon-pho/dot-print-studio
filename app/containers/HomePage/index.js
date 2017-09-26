@@ -29,6 +29,8 @@ import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
+import Cropper from '../Cropper';
+
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
    * when initial state username is not null, submit the form to load repos
@@ -81,6 +83,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
                 />
               </label>
             </Form>
+            <Cropper />
             <ReposList {...reposListProps} />
           </Section>
         </div>
