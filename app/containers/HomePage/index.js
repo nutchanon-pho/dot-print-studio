@@ -30,6 +30,7 @@ import reducer from './reducer';
 import saga from './saga';
 
 import Cropper from '../Cropper';
+import UploadImageButton from '../UploadImageButton';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
@@ -84,6 +85,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
               </label>
             </Form>
             <Cropper />
+            <UploadImageButton />
             <ReposList {...reposListProps} />
           </Section>
         </div>

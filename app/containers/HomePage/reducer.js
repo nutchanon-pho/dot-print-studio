@@ -21,6 +21,7 @@ const initialState = fromJS({
 });
 
 function homeReducer(state = initialState, action) {
+  console.log('homeReducer', state);
   switch (action.type) {
     case CHANGE_USERNAME:
 
