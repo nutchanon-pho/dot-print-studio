@@ -5,6 +5,7 @@ import sample from './sample.jpg';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectUploadedImage } from './selectors';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 class Cropper extends Component {
   constructor(props) {
@@ -18,9 +19,17 @@ class Cropper extends Component {
   }
 
   onCrop() {
-    this.setState({
-      previewedImage: this.cropper.getCroppedCanvas().toDataURL(),
-    });
+    // const vm = this;
+    // function run() {
+    //   vm.setState({
+    //     previewedImage: vm.cropper.getCroppedCanvas().toDataURL(),
+    //   });
+    // }
+
+    // const realFunction =
+    //   _.debounce(run, 5000);
+
+    // realFunction();
   }
 
   render() {
@@ -32,7 +41,7 @@ class Cropper extends Component {
           inputRef={(el) => (this.cropper = el)}
           onCrop={this.onCrop}
         />
-        <CropperPreview previewedImage={this.state.previewedImage} />
+        {/* <CropperPreview previewedImage={this.state.previewedImage} /> */}
       </div>
     );
   }

@@ -9,6 +9,7 @@ const makeSelectUploadedImage = () => createSelector(
     if (state) {
       return state.get('uploadedImage');
     }
+    return null;
   }
 );
 

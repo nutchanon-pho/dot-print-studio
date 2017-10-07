@@ -1,31 +1,62 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import {
+  Container, Input, Divider, Dropdown, Grid, Header, Icon, Image, List, Menu, Segment, Visibility,
+} from 'semantic-ui-react';
 
-import A from './A';
-import Img from './Img';
-import NavBar from './NavBar';
-import HeaderLink from './HeaderLink';
-import Banner from './banner.jpg';
-import messages from './messages';
+class AppHeader extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  state = {}
 
-class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
   render() {
+    const { activeItem } = this.state;
+
     return (
-      <div>
-        <A href="https://twitter.com/mxstbr">
-          <Img src={Banner} alt="react-boilerplate - Logo" />
-        </A>
-        <NavBar>
-          <HeaderLink to="/">
-            <FormattedMessage {...messages.home} />
-          </HeaderLink>
-          <HeaderLink to="/features">
-            <FormattedMessage {...messages.features} />
-          </HeaderLink>
-        </NavBar>
-      </div>
+      <Menu stackable>
+        <Menu.Item>
+          <img src="/logo.png" />
+        </Menu.Item>
+
+        <Menu.Item
+          name="home"
+          active={activeItem === 'home'}
+          onClick={this.handleItemClick}
+        >
+          Home
+        </Menu.Item>
+
+        <Menu.Item
+          name="shop"
+          active={activeItem === 'shop'}
+          onClick={this.handleItemClick}
+        >
+          Shop
+        </Menu.Item>
+
+        <Menu.Item
+          name="gallery"
+          active={activeItem === 'gallery'}
+          onClick={this.handleItemClick}
+        >
+          Gallery
+        </Menu.Item>
+        <Menu.Item
+          name="inspiration"
+          active={activeItem === 'inspiration'}
+          onClick={this.handleItemClick}
+        >
+          Inspiration
+        </Menu.Item>
+        <Menu.Menu position="right">
+          <Menu.Item>
+            <Input icon="search" placeholder="Search..." />
+          </Menu.Item>
+          <Menu.Item name="logout" active={activeItem === 'logout'} onClick={this.handleItemClick} />
+        </Menu.Menu>
+      </Menu>
     );
   }
 }
 
-export default Header;
+export default AppHeader;
