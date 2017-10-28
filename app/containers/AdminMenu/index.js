@@ -14,6 +14,7 @@ import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 import { makeSelectActiveAdminMenu } from './selectors';
 import { createStructuredSelector } from 'reselect';
+import { Link } from 'react-router-dom';
 
 const indentStyle = {
   paddingLeft: '45px',
@@ -32,11 +33,17 @@ class AdminMenu extends Component {
   }
 
   render() {
+    console.log('this.props', this.props);
+    console.log(this.props.history);
     const { activeAdminMenu } = this.props;
     return (
       <Menu inverted vertical fixed="left">
-        <Menu.Item name="home" active={activeAdminMenu === 'home'} onClick={this.handleItemClick} />
-        <Menu.Item name="order" active={activeAdminMenu === 'order'} onClick={this.handleItemClick} />
+        <Link to="/admin">
+          <Menu.Item name="home" active={activeAdminMenu === 'home'} onClick={this.handleItemClick} />
+        </Link>
+        <Link to="/admin/order">
+          <Menu.Item name="order" active={activeAdminMenu === 'order'} onClick={this.handleItemClick} />
+        </Link>
         <Menu.Item name="report" active={activeAdminMenu === 'report'} onClick={this.handleItemClick} />
         <Menu.Item name="member information" active={activeAdminMenu === 'member information'} onClick={this.handleItemClick} />
         <Menu.Item header>

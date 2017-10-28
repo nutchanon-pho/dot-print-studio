@@ -13,8 +13,8 @@ import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import AdminHomePage from 'containers/AdminHomePage/Loadable';
+import AdminOrderPage from 'containers/AdminOrderPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import Footer from 'components/Footer';
 
 const AppWrapper = styled.div`
   margin: 0 auto;
@@ -36,6 +36,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/admin" component={AdminHomePage} />
+        <Route exact path="/admin/order" component={AdminOrderPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
     </AppWrapper>
