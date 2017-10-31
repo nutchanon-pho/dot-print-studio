@@ -23,40 +23,9 @@ export default class AdminHomePage extends React.PureComponent { // eslint-disab
   render() {
     return (
       <div>
-        <AdminMenu />
-        <Content>
-          <Card.Group>
-            <Card fluid color="red" header="Home" />
-          </Card.Group>
-          <Grid columns={4} stackable>
-            <Grid.Row>
-              <Grid.Column>
-                <Statistic style={statisticStyle}>
-                  <Statistic.Value>25</Statistic.Value>
-                  <Statistic.Label>Today's Orders</Statistic.Label>
-                </Statistic>
-              </Grid.Column>
-              <Grid.Column>
-                <Statistic style={statisticStyle}>
-                  <Statistic.Value>675</Statistic.Value>
-                  <Statistic.Label>Today's Visits</Statistic.Label>
-                </Statistic>
-              </Grid.Column>
-              <Grid.Column>
-                <Statistic style={statisticStyle}>
-                  <Statistic.Value>122</Statistic.Value>
-                  <Statistic.Label>Total Members</Statistic.Label>
-                </Statistic>
-              </Grid.Column>
-              <Grid.Column>
-                <Statistic style={statisticStyle}>
-                  <Statistic.Value>12,895</Statistic.Value>
-                  <Statistic.Label>This Month's Revenue</Statistic.Label>
-                </Statistic>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Content>
+        <Card.Group>
+          <Card fluid color="red" header="Orders" />
+        </Card.Group>
       </div>
     );
   }

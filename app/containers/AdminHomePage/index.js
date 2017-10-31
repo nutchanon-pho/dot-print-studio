@@ -6,57 +6,76 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import AdminMenu from 'containers/AdminMenu';
-import { Card, Container, Grid, Statistic, Image } from 'semantic-ui-react';
+import { FormattedNumber } from 'react-intl';
+import { Card, Grid, Image, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
+import OrderImage from './order.png';
+import VisitImage from './visit.png';
+import MemberImage from './members.png';
+import IncomeImage from './income.png';
 
-const Content = styled.div`
-margin-left: 220px;
+const StyledImage = styled(Image)`
+  padding: 15px;
 `;
-
-const statisticStyle = {
-  padding: '25px',
-};
 
 export default class AdminHomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
+    const summaryCardData = [
+      {
+        name: 'Today\'s Orders',
+        amount: 244,
+        image: OrderImage,
+        amountFormat: null,
+      },
+      {
+        name: 'Today\'s Visits',
+        amount: 1512,
+        image: VisitImage,
+        amountFormat: null,
+      },
+      {
+        name: 'Members',
+        amount: 144,
+        image: MemberImage,
+        amountFormat: null,
+      },
+      {
+        name: 'Income',
+        amount: 124500.50,
+        image: IncomeImage,
+        amountFormat: { minimumFractionDigits: 2 },
+      },
+    ];
+    const summaryCardElems = summaryCardData.map((eachCard) => (
+      <Grid.Column key={eachCard.name}>
+        <Card>
+          <Grid columns={2}>
+            <Grid.Column textAlign="center">
+              <StyledImage src={eachCard.image} centered />
+            </Grid.Column>
+            <Grid.Column textAlign="center" verticalAlign="middle">
+              <Header as="h2" style={{ wordBreak: 'break-word' }}>
+                <Header.Content>
+                  <FormattedNumber value={eachCard.amount} {...eachCard.amountFormat} />
+                  <Header.Subheader>
+                    {eachCard.name}
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+            </Grid.Column>
+          </Grid>
+        </Card>
+      </Grid.Column>
+    ));
     return (
       <div>
-        <AdminMenu />
-        <Content>
-          <Card.Group>
-            <Card fluid color="red" header="Home" />
-          </Card.Group>
-          <Grid columns={4} stackable>
-            <Grid.Row>
-              <Grid.Column>
-                <Statistic style={statisticStyle}>
-                  <Statistic.Value>25</Statistic.Value>
-                  <Statistic.Label>Today's Orders</Statistic.Label>
-                </Statistic>
-              </Grid.Column>
-              <Grid.Column>
-                <Statistic style={statisticStyle}>
-                  <Statistic.Value>675</Statistic.Value>
-                  <Statistic.Label>Today's Visits</Statistic.Label>
-                </Statistic>
-              </Grid.Column>
-              <Grid.Column>
-                <Statistic style={statisticStyle}>
-                  <Statistic.Value>122</Statistic.Value>
-                  <Statistic.Label>Total Members</Statistic.Label>
-                </Statistic>
-              </Grid.Column>
-              <Grid.Column>
-                <Statistic style={statisticStyle}>
-                  <Statistic.Value>12,895</Statistic.Value>
-                  <Statistic.Label>This Month's Revenue</Statistic.Label>
-                </Statistic>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Content>
+        <Card.Group>
+          <Card fluid color="red" header="Home" />
+        </Card.Group>
+        {}
+        <Grid columns={4}>
+          {summaryCardElems}
+        </Grid>
       </div>
     );
   }

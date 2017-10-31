@@ -12,8 +12,7 @@ import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
-import AdminHomePage from 'containers/AdminHomePage/Loadable';
-import AdminOrderPage from 'containers/AdminOrderPage/Loadable';
+import AdminPage from 'containers/AdminPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 const AppWrapper = styled.div`
@@ -35,8 +34,7 @@ export default function App() {
       </Helmet>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/admin" component={AdminHomePage} />
-        <Route exact path="/admin/order" component={AdminOrderPage} />
+        <Route path="/admin" component={AdminPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
     </AppWrapper>
