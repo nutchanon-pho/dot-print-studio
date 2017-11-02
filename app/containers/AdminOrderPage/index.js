@@ -8,16 +8,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import AdminMenu from 'containers/AdminMenu';
-import { Card, Container, Grid, Statistic, Image } from 'semantic-ui-react';
+import { Card, Container, Grid, Statistic, Image, Tab } from 'semantic-ui-react';
 import styled from 'styled-components';
+import NewOrderPage from './NewOrderPage';
 
-const Content = styled.div`
-margin-left: 220px;
-`;
-
-const statisticStyle = {
-  padding: '25px',
-};
+const panes = [
+  { menuItem: 'New Orders', render: () => <NewOrderPage /> },
+  { menuItem: 'Working List', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
+  { menuItem: 'History', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
+];
 
 export default class AdminHomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -26,6 +25,11 @@ export default class AdminHomePage extends React.PureComponent { // eslint-disab
         <Card.Group>
           <Card fluid color="red" header="Orders" />
         </Card.Group>
+        <Grid columns={1}>
+          <Grid.Column>
+            <Tab panes={panes} />
+          </Grid.Column>
+        </Grid>
       </div>
     );
   }
