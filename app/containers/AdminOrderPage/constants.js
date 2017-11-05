@@ -1,0 +1,2 @@
+export const SELECT_NEW_ORDER = 'SELECT_NEW_ORDER';
+export const UNSELECT_NEW_ORDER = 'UNSELECT_WORK';
