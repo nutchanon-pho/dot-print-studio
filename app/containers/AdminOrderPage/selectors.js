@@ -7,7 +7,20 @@ const makeSelectSelectedNewOrder = () => createSelector(
     (state) => state.get('selectedNewOrder')
 );
 
+const makeSelectWorkingList = () => createSelector(
+    selectAdminOrder,
+    (state) => state.get('workingList')
+);
+
+const makeSelectNewOrderList = () => createSelector(
+    selectAdminOrder,
+    (state) => state.get('newOrderList')
+);
+
+
 export {
     selectAdminOrder,
     makeSelectSelectedNewOrder,
+    makeSelectWorkingList,
+    makeSelectNewOrderList,
 };

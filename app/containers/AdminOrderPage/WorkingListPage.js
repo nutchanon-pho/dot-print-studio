@@ -65,10 +65,11 @@ class NewOrderPage extends React.PureComponent { // eslint-disable-line react/pr
       <Tab.Pane>
         <Grid>
           <Grid.Column floated="left" width={5}>
-            <Header as="h1">New Order</Header>
+            <Header as="h1">Working List</Header>
           </Grid.Column>
           <Grid.Column floated="right" width={5} textAlign="right">
-            <Button primary onClick={() => this.props.addToWorkingList(this.props.selectedNewOrder)}>Add to Working List</Button>
+            <Button primary>Deliver</Button>
+            <Button primary>Download (.csv)</Button>
           </Grid.Column>
         </Grid>
         <Grid columns={2}>

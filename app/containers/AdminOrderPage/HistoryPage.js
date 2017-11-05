@@ -65,10 +65,7 @@ class NewOrderPage extends React.PureComponent { // eslint-disable-line react/pr
       <Tab.Pane>
         <Grid>
           <Grid.Column floated="left" width={5}>
-            <Header as="h1">New Order</Header>
-          </Grid.Column>
-          <Grid.Column floated="right" width={5} textAlign="right">
-            <Button primary onClick={() => this.props.addToWorkingList(this.props.selectedNewOrder)}>Add to Working List</Button>
+            <Header as="h1">History</Header>
           </Grid.Column>
         </Grid>
         <Grid columns={2}>
@@ -78,15 +75,6 @@ class NewOrderPage extends React.PureComponent { // eslint-disable-line react/pr
               data={data}
               width="100%"
               columns={[
-                {
-                  Header: '',
-                  width: 20,
-                  Cell: (row) => (
-                    <input
-                      type="checkbox" checked={this.handleCheckedValue(row)} onChange={(event) => this.onSelectWork(event, row)}
-                    />
-                    ),
-                },
                 {
                   Header: 'Invoice Number',
                   accessor: 'invoiceNumber',

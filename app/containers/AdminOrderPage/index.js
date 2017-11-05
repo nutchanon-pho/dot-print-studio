@@ -11,11 +11,13 @@ import AdminMenu from 'containers/AdminMenu';
 import { Card, Container, Grid, Statistic, Image, Tab } from 'semantic-ui-react';
 import styled from 'styled-components';
 import NewOrderPage from './NewOrderPage';
+import WorkingListPage from './WorkingListPage';
+import HistoryPage from './HistoryPage';
 
 const panes = [
   { menuItem: 'New Orders', render: () => <NewOrderPage /> },
-  { menuItem: 'Working List', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
-  { menuItem: 'History', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
+  { menuItem: 'Working List', render: () => <WorkingListPage /> },
+  { menuItem: 'History', render: () => <HistoryPage /> },
 ];
 
 export default class AdminHomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
