@@ -5,6 +5,8 @@
  * code.
  */
 import 'semantic-ui-css/semantic.min.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 // Needed for redux-saga es6 generator support
 import 'babel-polyfill';

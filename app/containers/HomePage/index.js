@@ -28,66 +28,61 @@ import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import Menu from 'containers/Menu';
+import Slider from 'react-slick';
+import { Image } from 'semantic-ui-react';
 
-import Cropper from '../Cropper';
-import UploadImageButton from '../UploadImageButton';
+const NextArrow = (props) => {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: 'block', right: '10%' }}
+      onClick={onClick}
+    ></div>
+  );
+};
+
+const PrevArrow = (props) => {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: 'block', left: '10%' }}
+      onClick={onClick}
+    ></div>
+  );
+};
+
+const settings = {
+  dots: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: true,
+  accessibility: true,
+  prevArrow: <PrevArrow />,
+  nextArrow: <NextArrow />,
+};
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  /**
-   * when initial state username is not null, submit the form to load repos
-   */
-  componentDidMount() {
-    if (this.props.username && this.props.username.trim().length > 0) {
-      this.props.onSubmitForm();
-    }
-  }
-
   render() {
-    const { loading, error, repos } = this.props;
-    const reposListProps = {
-      loading,
-      error,
-      repos,
-    };
-
     return (
       <article>
         <Helmet>
           <title>Home Page</title>
           <meta name="description" content="A React.js Boilerplate application homepage" />
         </Helmet>
-        <div>
-          <CenteredSection>
-            <H2>
-              <FormattedMessage {...messages.startProjectHeader} />
-            </H2>
-            <p>
-              <FormattedMessage {...messages.startProjectMessage} />
-            </p>
-          </CenteredSection>
-          <Section>
-            <H2>
-              <FormattedMessage {...messages.trymeHeader} />
-            </H2>
-            <Form onSubmit={this.props.onSubmitForm}>
-              <label htmlFor="username">
-                <FormattedMessage {...messages.trymeMessage} />
-                <AtPrefix>
-                  <FormattedMessage {...messages.trymeAtPrefix} />
-                </AtPrefix>
-                <Input
-                  id="username"
-                  type="text"
-                  placeholder="nutchanon-pho"
-                  value={this.props.username}
-                  onChange={this.props.onChangeUsername}
-                />
-              </label>
-            </Form>
-            <Cropper />
-            <UploadImageButton />
-            <ReposList {...reposListProps} />
-          </Section>
+        <div style={{ backgroundColor: '#D4CFC9', height: '450px' }}>
+          <Menu />
+          <div style={{ marginTop: '100px' }}>
+            <Slider {...settings} >
+              <div><Image centered src="http://lorempixel.com/400/200/sports/1/" /></div>
+              <div><Image centered src="http://lorempixel.com/400/200/sports/2/" /></div>
+              <div><Image centered src="http://lorempixel.com/400/200/sports/3/" /></div>
+              <div><Image centered src="http://lorempixel.com/400/200/sports/4/" /></div>
+            </Slider>
+          </div>
         </div>
       </article>
     );
