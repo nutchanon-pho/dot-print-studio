@@ -73,14 +73,14 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
           <title>Home Page</title>
           <meta name="description" content="A React.js Boilerplate application homepage" />
         </Helmet>
-        <div style={{ backgroundColor: '#D4CFC9', height: '450px' }}>
+        <div style={{ backgroundColor: '#D4CFC9', height: '630px' }}>
           <Menu />
           <div style={{ marginTop: '100px' }}>
             <Slider {...settings} >
-              <div><Image centered src="http://lorempixel.com/400/200/sports/1/" /></div>
-              <div><Image centered src="http://lorempixel.com/400/200/sports/2/" /></div>
-              <div><Image centered src="http://lorempixel.com/400/200/sports/3/" /></div>
-              <div><Image centered src="http://lorempixel.com/400/200/sports/4/" /></div>
+              <div><Image centered src="https://loremflickr.com/600/400/dog?1" /></div>
+              <div><Image centered src="https://loremflickr.com/600/400/dog?2" /></div>
+              <div><Image centered src="https://loremflickr.com/600/400/dog?3" /></div>
+              <div><Image centered src="https://loremflickr.com/600/400/dog?4" /></div>
             </Slider>
           </div>
         </div>
