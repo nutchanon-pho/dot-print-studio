@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
+// import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
@@ -32,6 +32,8 @@ import Menu from 'containers/Menu';
 import Slider from 'react-slick';
 import { Image, Grid, Step, Icon, Container, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { GoogleMap, Marker, withGoogleMap, withScriptjs } from 'react-google-maps';
+import { compose, withProps } from 'recompose';
 
 const GradientArea = styled.div`
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d2cdc7+0,eae6e5+100 */
@@ -71,6 +73,24 @@ const PrevArrow = (props) => {
     ></div>
   );
 };
+
+const MyMapComponent = compose(
+  withProps({
+    googleMapURL: 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places',
+    loadingElement: <div style={{ height: '100%' }} />,
+    containerElement: <div style={{ height: '400px' }} />,
+    mapElement: <div style={{ height: '100%' }} />,
+  }),
+  withScriptjs,
+  withGoogleMap
+)((props) =>
+  (<GoogleMap
+    defaultZoom={17}
+    defaultCenter={{ lat: 13.732499, lng: 100.52187800000002 }}
+  >
+    {props.isMarkerShown && <Marker defaultPlace={{ placeId: 'ChIJse6r0teY4jARf5RskjYIw2E', location: { lat: 13.732499, lng: 100.52187800000002 } }} />}
+  </GoogleMap>)
+);
 
 const settings = {
   dots: true,
@@ -154,7 +174,19 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
           <Header textAlign="center" as="h1">
             ORDER NOW!
           </Header>
+          <MyMapComponent isMarkerShown />
         </Container>
+        <div style={{ backgroundColor: '#F9F7F4', height: '60px', marginTop: '60px' }}>
+          <Grid centered>
+            <Grid.Row centered divided>
+              <Grid.Column textAlign="right" width={4}>FOLLOW US <Icon name="facebook official" size="big" /> <Icon name="instagram" size="big" /> <Icon name="mail" size="big" /></Grid.Column>
+              <Grid.Column width={8}>
+                DOTPRINT.STUDIO@GMAIL.COM | 099-451-6619 / 089-131-8089 / 087-790-8867<br />
+                ADDRESS : 64(420/2) SOI PHRA NAKHARET, MAHA PHRUTTHARAM, BANG RAK, BKK 10500
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </div>
       </article>
     );
   }

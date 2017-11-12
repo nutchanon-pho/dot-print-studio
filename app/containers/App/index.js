@@ -15,8 +15,7 @@ import HomePage from 'containers/HomePage/Loadable';
 import AdminPage from 'containers/AdminPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
-const AppWrapper = styled.div`
-`;
+const AppWrapper = styled.div``;
 
 export default function App() {
   return (
