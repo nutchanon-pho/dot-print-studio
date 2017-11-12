@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import { Menu, Image, Responsive } from 'semantic-ui-react';
+import { Menu, Image, Responsive, Icon } from 'semantic-ui-react';
 import DotPrintLogo from 'images/dotprint-logo.png';
 
 const paddingForItems = { paddingRight: '75px' };
@@ -37,6 +37,9 @@ export default class DotPrintMenu extends Component {
           <Menu.Item content="LOGIN" name="login" active={activeItem === 'login'} onClick={this.handleItemClick} />
           <Responsive {...Responsive.onlyComputer}><Menu.Item content="|" /></Responsive>
           <Menu.Item content="REGISTER" name="register" active={activeItem === 'register'} onClick={this.handleItemClick} />
+          <Menu.Item name="cart">
+            <Icon name="cart" size="large" />
+          </Menu.Item>
         </Menu>
         <div style={{ clear: 'both' }} />
       </div>
