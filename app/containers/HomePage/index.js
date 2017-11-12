@@ -31,6 +31,17 @@ import saga from './saga';
 import Menu from 'containers/Menu';
 import Slider from 'react-slick';
 import { Image } from 'semantic-ui-react';
+import styled from 'styled-components';
+
+const GradientArea = styled.div`
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d2cdc7+0,eae6e5+100 */
+  background: #d2cdc7; /* Old browsers */
+  background: -moz-linear-gradient(top,  #d2cdc7 0%, #eae6e5 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #d2cdc7 0%,#eae6e5 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #d2cdc7 0%,#eae6e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2cdc7', endColorstr='#eae6e5',GradientType=0 ); /* IE6-9 */
+  height: 630px;
+`;
 
 const NextArrow = (props) => {
   const { className, style, onClick } = props;
@@ -73,7 +84,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
           <title>Home Page</title>
           <meta name="description" content="A React.js Boilerplate application homepage" />
         </Helmet>
-        <div style={{ backgroundColor: '#D4CFC9', height: '630px' }}>
+        <GradientArea>
           <Menu />
           <div style={{ marginTop: '100px' }}>
             <Slider {...settings} >
@@ -83,7 +94,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
               <div><Image centered src="https://loremflickr.com/600/400/dog?4" /></div>
             </Slider>
           </div>
-        </div>
+        </GradientArea>
       </article>
     );
   }
