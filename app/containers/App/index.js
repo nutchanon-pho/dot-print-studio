@@ -16,11 +16,6 @@ import AdminPage from 'containers/AdminPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 const AppWrapper = styled.div`
-  margin: 0 auto;
-  display: flex;
-  min-height: 100%;
-  padding: 0 0px;
-  flex-direction: column;
 `;
 
 export default function App() {
