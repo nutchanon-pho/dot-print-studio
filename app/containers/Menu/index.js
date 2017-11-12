@@ -20,7 +20,7 @@ export default class DotPrintMenu extends Component {
     const { activeItem } = this.state;
     return (
       <div>
-        <Image src={DotPrintLogo} style={{ width: '100px', position: 'absolute', marginTop: '55px', marginLeft: '55px' }} />
+        <Image src={DotPrintLogo} style={{ width: '150px', position: 'absolute', marginTop: '35px', marginLeft: '55px' }} />
         <Menu style={{ paddingTop: '55px', paddingRight: '100px' }} text size="large" floated="right">
           <Menu.Item style={paddingForItems} name="home" active={activeItem === 'home'} onClick={this.handleItemClick}>
             <b>HOME</b>
