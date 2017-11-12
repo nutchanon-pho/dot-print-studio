@@ -30,7 +30,7 @@ import reducer from './reducer';
 import saga from './saga';
 import Menu from 'containers/Menu';
 import Slider from 'react-slick';
-import { Image } from 'semantic-ui-react';
+import { Image, Grid, Step, Icon, Container, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 const GradientArea = styled.div`
@@ -40,7 +40,14 @@ const GradientArea = styled.div`
   background: -webkit-linear-gradient(top,  #d2cdc7 0%,#eae6e5 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom,  #d2cdc7 0%,#eae6e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2cdc7', endColorstr='#eae6e5',GradientType=0 ); /* IE6-9 */
-  height: 630px;
+
+  @media (min-width: 768px) {
+    height: 630px;
+  }
+
+  @media (max-width: 767px) {
+    height: 740px;
+  }
 `;
 
 const NextArrow = (props) => {
@@ -95,6 +102,59 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             </Slider>
           </div>
         </GradientArea>
+        <Container style={{ marginTop: '30px' }}>
+          <Grid centered stackable>
+            <Grid.Row centered columns={5}>
+              <Grid.Column textAlign="center">
+                <h1>CANVAS</h1>
+              </Grid.Column>
+              <Grid.Column textAlign="center">
+                <h1>POSTER</h1>
+              </Grid.Column>
+              <Grid.Column textAlign="center">
+                <h1>STICKER</h1>
+              </Grid.Column>
+              <Grid.Column textAlign="center">
+                <h1>PACKAGING</h1>
+              </Grid.Column>
+              <Grid.Column textAlign="center">
+                <h1>ETC.</h1>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Container>
+        <Container style={{ marginTop: '20px' }}>
+          <Step.Group fluid>
+            <Step active>
+              <Icon name="tags" />
+              <Step.Content>
+                <Step.Description>Configure Product/<br />
+                  Check Price Online</Step.Description>
+              </Step.Content>
+            </Step>
+            <Step active>
+              <Icon name="upload" />
+              <Step.Content>
+                <Step.Description>Upload Your File</Step.Description>
+              </Step.Content>
+            </Step>
+            <Step active>
+              <Icon name="payment" />
+              <Step.Content>
+                <Step.Description>Make a Payment</Step.Description>
+              </Step.Content>
+            </Step>
+            <Step active>
+              <Icon name="truck" />
+              <Step.Content>
+                <Step.Description>Receive the Product</Step.Description>
+              </Step.Content>
+            </Step>
+          </Step.Group>
+          <Header textAlign="center" as="h1">
+            ORDER NOW!
+          </Header>
+        </Container>
       </article>
     );
   }
