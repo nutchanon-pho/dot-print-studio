@@ -86,12 +86,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         </Helmet>
         <GradientArea>
           <Menu />
-          <div style={{ marginTop: '100px' }}>
+          <div style={{ marginTop: '100px', height: '600px', maxHeight: '600px' }}>
             <Slider {...settings} >
-              <div><Image centered src="https://loremflickr.com/600/400/dog?1" /></div>
-              <div><Image centered src="https://loremflickr.com/600/400/dog?2" /></div>
-              <div><Image centered src="https://loremflickr.com/600/400/dog?3" /></div>
-              <div><Image centered src="https://loremflickr.com/600/400/dog?4" /></div>
+              <div><Image centered src="https://picsum.photos/600/400?image=0" /></div>
+              <div><Image centered src="https://picsum.photos/600/400?image=1" /></div>
+              <div><Image centered src="https://picsum.photos/600/400?image=2" /></div>
+              <div><Image centered src="https://picsum.photos/600/400?image=3" /></div>
             </Slider>
           </div>
         </GradientArea>
