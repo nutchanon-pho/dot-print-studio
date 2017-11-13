@@ -6,24 +6,48 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  startProjectHeader: {
-    id: 'boilerplate.containers.HomePage.start_project.header',
-    defaultMessage: 'Start your next react project in seconds',
+  productCanvas: {
+    id: 'dotprint.homepage.canvas',
+    defaultMessage: 'CANVAS',
   },
-  startProjectMessage: {
-    id: 'boilerplate.containers.HomePage.start_project.message',
-    defaultMessage: 'A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices',
+  productPoster: {
+    id: 'dotprint.homepage.poster',
+    defaultMessage: 'POSTER',
   },
-  trymeHeader: {
-    id: 'boilerplate.containers.HomePage.tryme.header',
-    defaultMessage: 'Try me!',
+  productSticker: {
+    id: 'dotprint.homepage.sticker',
+    defaultMessage: 'STICKER',
   },
-  trymeMessage: {
-    id: 'boilerplate.containers.HomePage.tryme.message',
-    defaultMessage: 'Show Github repositories by',
+  productPackaging: {
+    id: 'dotprint.homepage.packaging',
+    defaultMessage: 'PACKAGING',
   },
-  trymeAtPrefix: {
-    id: 'boilerplate.containers.HomePage.tryme.atPrefix',
-    defaultMessage: '@',
+  productEtc: {
+    id: 'dotprint.homepage.etc',
+    defaultMessage: 'ETC.',
+  },
+  stepConfigureProduct: {
+    id: 'dotprint.homepage.configureProduct',
+    defaultMessage: 'Configure Product',
+  },
+  stepCheckPriceOnline: {
+    id: 'dotprint.homepage.checkPriceOnline',
+    defaultMessage: 'Check Price Online',
+  },
+  stepUploadYourFile: {
+    id: 'dotprint.homepage.uploadYourFile',
+    defaultMessage: 'Upload Your File',
+  },
+  stepMakeAPayment: {
+    id: 'dotprint.homepage.makeAPayment',
+    defaultMessage: 'Make a Payment',
+  },
+  stepReceiveTheProduct: {
+    id: 'dotprint.homepage.receiveTheProduct',
+    defaultMessage: 'Receive the Product',
+  },
+  orderNow: {
+    id: 'dotprint.homepage.orderNow',
+    defaultMessage: 'ORDER NOW!',
   },
 });
