@@ -44,7 +44,7 @@ export default class DotPrintMenu extends Component {
           <Menu.Item style={paddingForItems} name="ourStory" active={activeItem === 'ourStory'} onClick={this.handleItemClick}>
             <FormattedMessage {...messages.menuOurStory} />
           </Menu.Item>
-          <Menu.Item content="LOGIN" active={activeItem === 'login'} onClick={this.handleItemClick}>
+          <Menu.Item active={activeItem === 'login'} onClick={this.handleItemClick}>
             <FormattedMessage {...messages.menuLogin} />
           </Menu.Item>
           <Responsive {...Responsive.onlyComputer}><Menu.Item content="|" /></Responsive>
