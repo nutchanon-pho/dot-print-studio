@@ -55,7 +55,6 @@ const GradientArea = styled.div`
   }
 `;
 
-
 const settings = {
   dots: true,
   speed: 500,
