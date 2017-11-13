@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-// import { compose } from 'redux';
+import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
@@ -32,11 +32,11 @@ import Menu from 'containers/Menu';
 import Slider from 'react-slick';
 import { Image, Grid, Step, Icon, Container, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { GoogleMap, Marker, withGoogleMap, withScriptjs } from 'react-google-maps';
-import { compose, withProps } from 'recompose';
+
 import Footer from 'components/Footer';
 import NextArrow from 'components/NextArrow';
 import PrevArrow from 'components/PrevArrow';
+import DotPrintMap from 'components/DotPrintMap';
 
 const GradientArea = styled.div`
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d2cdc7+0,eae6e5+100 */
@@ -55,23 +55,6 @@ const GradientArea = styled.div`
   }
 `;
 
-const MyMapComponent = compose(
-  withProps({
-    googleMapURL: 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDqvrAue-FeUXXiuwtCm1M2Wgcri1YnHVs',
-    loadingElement: <div style={{ height: '100%' }} />,
-    containerElement: <div style={{ height: '400px' }} />,
-    mapElement: <div style={{ height: '100%' }} />,
-  }),
-  withScriptjs,
-  withGoogleMap
-)((props) =>
-  (<GoogleMap
-    defaultZoom={17}
-    defaultCenter={{ lat: 13.732499, lng: 100.52187800000002 }}
-  >
-    {props.isMarkerShown && <Marker defaultPlace={{ placeId: 'ChIJse6r0teY4jARf5RskjYIw2E', location: { lat: 13.732499, lng: 100.52187800000002 } }} />}
-  </GoogleMap>)
-);
 
 const settings = {
   dots: true,
@@ -155,7 +138,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
           <Header textAlign="center" as="h1">
             ORDER NOW!
           </Header>
-          <MyMapComponent isMarkerShown />
+          <DotPrintMap isMarkerShown />
         </Container>
         <Footer />
       </article>
