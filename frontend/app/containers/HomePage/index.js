@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-// import { compose } from 'redux';
+import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
@@ -32,9 +32,11 @@ import Menu from 'containers/Menu';
 import Slider from 'react-slick';
 import { Image, Grid, Step, Icon, Container, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { GoogleMap, Marker, withGoogleMap, withScriptjs } from 'react-google-maps';
-import { compose, withProps } from 'recompose';
+
 import Footer from 'components/Footer';
+import NextArrow from 'components/NextArrow';
+import PrevArrow from 'components/PrevArrow';
+import DotPrintMap from 'components/DotPrintMap';
 
 const GradientArea = styled.div`
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d2cdc7+0,eae6e5+100 */
@@ -52,46 +54,6 @@ const GradientArea = styled.div`
     height: 740px;
   }
 `;
-
-const NextArrow = (props) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: 'block', right: '10%' }}
-      onClick={onClick}
-    ></div>
-  );
-};
-
-const PrevArrow = (props) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: 'block', left: '10%', zIndex: '2' }}
-      onClick={onClick}
-    ></div>
-  );
-};
-
-const MyMapComponent = compose(
-  withProps({
-    googleMapURL: 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDqvrAue-FeUXXiuwtCm1M2Wgcri1YnHVs',
-    loadingElement: <div style={{ height: '100%' }} />,
-    containerElement: <div style={{ height: '400px' }} />,
-    mapElement: <div style={{ height: '100%' }} />,
-  }),
-  withScriptjs,
-  withGoogleMap
-)((props) =>
-  (<GoogleMap
-    defaultZoom={17}
-    defaultCenter={{ lat: 13.732499, lng: 100.52187800000002 }}
-  >
-    {props.isMarkerShown && <Marker defaultPlace={{ placeId: 'ChIJse6r0teY4jARf5RskjYIw2E', location: { lat: 13.732499, lng: 100.52187800000002 } }} />}
-  </GoogleMap>)
-);
 
 const settings = {
   dots: true,
@@ -127,19 +89,19 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
           <Grid centered stackable>
             <Grid.Row centered columns={5}>
               <Grid.Column textAlign="center">
-                <h1>CANVAS</h1>
+                <h1><FormattedMessage {...messages.productCanvas} /></h1>
               </Grid.Column>
               <Grid.Column textAlign="center">
-                <h1>POSTER</h1>
+                <h1><FormattedMessage {...messages.productPoster} /></h1>
               </Grid.Column>
               <Grid.Column textAlign="center">
-                <h1>STICKER</h1>
+                <h1><FormattedMessage {...messages.productSticker} /></h1>
               </Grid.Column>
               <Grid.Column textAlign="center">
-                <h1>PACKAGING</h1>
+                <h1><FormattedMessage {...messages.productPackaging} /></h1>
               </Grid.Column>
               <Grid.Column textAlign="center">
-                <h1>ETC.</h1>
+                <h1><FormattedMessage {...messages.productEtc} /></h1>
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -149,33 +111,33 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             <Step active>
               <Icon name="tags" />
               <Step.Content>
-                <Step.Description>Configure Product/<br />
-                  Check Price Online</Step.Description>
+                <Step.Description><FormattedMessage {...messages.stepConfigureProduct} />/<br />
+                  <FormattedMessage {...messages.stepCheckPriceOnline} /></Step.Description>
               </Step.Content>
             </Step>
             <Step active>
               <Icon name="upload" />
               <Step.Content>
-                <Step.Description>Upload Your File</Step.Description>
+                <Step.Description><FormattedMessage {...messages.stepUploadYourFile} /></Step.Description>
               </Step.Content>
             </Step>
             <Step active>
               <Icon name="payment" />
               <Step.Content>
-                <Step.Description>Make a Payment</Step.Description>
+                <Step.Description><FormattedMessage {...messages.stepMakeAPayment} /></Step.Description>
               </Step.Content>
             </Step>
             <Step active>
               <Icon name="truck" />
               <Step.Content>
-                <Step.Description>Receive the Product</Step.Description>
+                <Step.Description><FormattedMessage {...messages.stepReceiveTheProduct} /></Step.Description>
               </Step.Content>
             </Step>
           </Step.Group>
           <Header textAlign="center" as="h1">
-            ORDER NOW!
+            <FormattedMessage {...messages.orderNow} />
           </Header>
-          <MyMapComponent isMarkerShown />
+          <DotPrintMap isMarkerShown />
         </Container>
         <Footer />
       </article>
