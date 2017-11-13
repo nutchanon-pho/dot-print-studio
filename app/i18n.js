@@ -20,9 +20,8 @@ addLocaleData(deLocaleData);
 addLocaleData(thLocaleData);
 
 export const appLocales = [
-  'en',
-  'de',
-  'th',
+  'ไทย',
+  'English',
 ];
 
 export const formatTranslationMessages = (locale, messages) => {
@@ -38,7 +37,6 @@ export const formatTranslationMessages = (locale, messages) => {
 };
 
 export const translationMessages = {
-  en: formatTranslationMessages('en', enTranslationMessages),
-  de: formatTranslationMessages('de', deTranslationMessages),
   th: formatTranslationMessages('th', thTranslationMessages),
+  en: formatTranslationMessages('en', enTranslationMessages),
 };
