@@ -35,6 +35,8 @@ import styled from 'styled-components';
 import { GoogleMap, Marker, withGoogleMap, withScriptjs } from 'react-google-maps';
 import { compose, withProps } from 'recompose';
 import Footer from 'components/Footer';
+import NextArrow from 'components/NextArrow';
+import PrevArrow from 'components/PrevArrow';
 
 const GradientArea = styled.div`
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d2cdc7+0,eae6e5+100 */
@@ -52,28 +54,6 @@ const GradientArea = styled.div`
     height: 740px;
   }
 `;
-
-const NextArrow = (props) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: 'block', right: '10%' }}
-      onClick={onClick}
-    ></div>
-  );
-};
-
-const PrevArrow = (props) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: 'block', left: '10%', zIndex: '2' }}
-      onClick={onClick}
-    ></div>
-  );
-};
 
 const MyMapComponent = compose(
   withProps({
