@@ -90,19 +90,19 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
           <Grid centered stackable>
             <Grid.Row centered columns={5}>
               <Grid.Column textAlign="center">
-                <h1>CANVAS</h1>
+                <h1><FormattedMessage {...messages.productCanvas} /></h1>
               </Grid.Column>
               <Grid.Column textAlign="center">
-                <h1>POSTER</h1>
+                <h1><FormattedMessage {...messages.productPoster} /></h1>
               </Grid.Column>
               <Grid.Column textAlign="center">
-                <h1>STICKER</h1>
+                <h1><FormattedMessage {...messages.productSticker} /></h1>
               </Grid.Column>
               <Grid.Column textAlign="center">
-                <h1>PACKAGING</h1>
+                <h1><FormattedMessage {...messages.productPackaging} /></h1>
               </Grid.Column>
               <Grid.Column textAlign="center">
-                <h1>ETC.</h1>
+                <h1><FormattedMessage {...messages.productEtc} /></h1>
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -112,31 +112,31 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             <Step active>
               <Icon name="tags" />
               <Step.Content>
-                <Step.Description>Configure Product/<br />
-                  Check Price Online</Step.Description>
+                <Step.Description><FormattedMessage {...messages.stepConfigureProduct} />/<br />
+                  <FormattedMessage {...messages.stepCheckPriceOnline} /></Step.Description>
               </Step.Content>
             </Step>
             <Step active>
               <Icon name="upload" />
               <Step.Content>
-                <Step.Description>Upload Your File</Step.Description>
+                <Step.Description><FormattedMessage {...messages.stepUploadYourFile} /></Step.Description>
               </Step.Content>
             </Step>
             <Step active>
               <Icon name="payment" />
               <Step.Content>
-                <Step.Description>Make a Payment</Step.Description>
+                <Step.Description><FormattedMessage {...messages.stepMakeAPayment} /></Step.Description>
               </Step.Content>
             </Step>
             <Step active>
               <Icon name="truck" />
               <Step.Content>
-                <Step.Description>Receive the Product</Step.Description>
+                <Step.Description><FormattedMessage {...messages.stepReceiveTheProduct} /></Step.Description>
               </Step.Content>
             </Step>
           </Step.Group>
           <Header textAlign="center" as="h1">
-            ORDER NOW!
+            <FormattedMessage {...messages.orderNow} />
           </Header>
           <DotPrintMap isMarkerShown />
         </Container>
