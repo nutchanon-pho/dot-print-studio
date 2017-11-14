@@ -40,7 +40,6 @@ module.exports = {
         try {
             return await schema.find(query);
         } catch (error) {
-            console.log('error on select');
             throw new Error('select error of mongo: ' + error);
         }
     },

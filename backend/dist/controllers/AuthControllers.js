@@ -2,9 +2,11 @@
 
 var _AuthService = require('../services/AuthService');
 
-var authService = _interopRequireWildcard(_AuthService);
+var _AuthService2 = _interopRequireDefault(_AuthService);
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var authService = (0, _AuthService2.default)();
 
 module.exports = {
     init: function init(app) {
@@ -19,7 +21,7 @@ module.exports = {
                 loginInfo.then(function (result) {
                     res.json(result);
                 }).catch(function (err) {
-                    res.status(500).send(err);
+                    res.status(500).send('server error occured ' + err);
                 });
             } catch (exception) {
                 res.status(500).send(exception);

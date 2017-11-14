@@ -5,16 +5,13 @@ const { Schema } = mongoose;
 const localAuthSchema = new Schema({
     password: String,
 });
-
 const fbAuthSchema = new Schema({
     uid: String,
 });
-
 const accountsSchema = new Schema({
     local: localAuthSchema,
     facebook: fbAuthSchema,
 });
-
 const authSchema = new Schema({
     firstname: String,
     lastname: String,
@@ -24,5 +21,4 @@ const authSchema = new Schema({
 });
 
 const AuthUsers = mongoose.model('AuthUsers', authSchema);
-
 module.exports = AuthUsers;

@@ -4,7 +4,7 @@ import * as mongoDBService from '../services/mongodbservice';
 
 const saltRounds = 10;
 
-module.exports = {
+module.exports = () => ({
     login: async (kind, username, inputPassword) => {
         const query = {
             username,
@@ -38,4 +38,4 @@ module.exports = {
             throw new Error(error);
         }
     },
-};
+});

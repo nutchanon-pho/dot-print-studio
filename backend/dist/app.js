@@ -20,6 +20,10 @@ var _AuthControllers = require('./controllers/AuthControllers');
 
 var authController = _interopRequireWildcard(_AuthControllers);
 
+var _HealthCheckControllers = require('./controllers/HealthCheckControllers');
+
+var healthCheckController = _interopRequireWildcard(_HealthCheckControllers);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -35,9 +39,6 @@ app.use((0, _compression2.default)());
 
 // need to seperate routes here
 authController.init(app);
-
-app.get('/ping', function (req, res) {
-    res.send('pong');
-});
+healthCheckController.init(app);
 
 app.listen(port);

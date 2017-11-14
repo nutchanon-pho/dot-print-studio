@@ -1,4 +1,6 @@
-import * as authService from '../services/AuthService';
+import AuthService from '../services/AuthService';
+
+const authService = AuthService();
 
 module.exports = {
     init: (app) => {
