@@ -17,8 +17,24 @@ mongoose.connect(config.getDbConnectionString(), options).then(
         console.log('success');
     },
     (err) => {
-        console.log(err);
+        console.log(`some fucking ${err}`);
     },
-);
+).catch(err => console.log(`yo man ${err}`));
 
-module.exports = mongoose;
+module.exports = {
+    mongoose,
+    findMongo: async (schema, query) => {
+        try {
+            return await schema.find(query);
+        } catch (error) {
+            throw new Error(`select error of mongo: ${error}`);
+        }
+    },
+    createRecord: async (schema, statement) => {
+        try {
+            return await schema.create(statement);
+        } catch (error) {
+            throw new Error(`create record error of mongo: ${error}`);
+        }
+    },
+};

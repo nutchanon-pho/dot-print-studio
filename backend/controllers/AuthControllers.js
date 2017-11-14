@@ -9,21 +9,25 @@ module.exports = {
                 loginInfo.then((result) => {
                     res.json(result);
                 }).catch((err) => {
-                    res.status(500).send(err);
+                    res.status(500).send(`server error occured ${err}`);
                 });
             } catch (exception) {
-                res.status(500).send();
+                res.status(500).send(exception);
             }
         });
 
         app.post('/auth/register', (req, res) => {
-            const { kind, username, password } = req.body;
-            const passwordHash = authService.register(kind, username, password);
-            passwordHash.then((result) => {
-                res.send(result);
-            }).catch((err) => {
-                res.status(500).send(`unable to hash key ${err}`);
-            });
+            try {
+                const { kind, username, password } = req.body;
+                const passwordHash = authService.register(kind, username, password);
+                passwordHash.then((result) => {
+                    res.send(result);
+                }).catch((err) => {
+                    res.status(500).send(`unable to hash key ${err}`);
+                });
+            } catch (exception) {
+                res.status(500).send(exception);
+            }
         });
     },
 };

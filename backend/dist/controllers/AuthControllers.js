@@ -22,22 +22,26 @@ module.exports = {
                     res.status(500).send(err);
                 });
             } catch (exception) {
-                res.status(500).send();
+                res.status(500).send(exception);
             }
         });
 
         app.post('/auth/register', function (req, res) {
-            var _req$body2 = req.body,
-                kind = _req$body2.kind,
-                username = _req$body2.username,
-                password = _req$body2.password;
+            try {
+                var _req$body2 = req.body,
+                    kind = _req$body2.kind,
+                    username = _req$body2.username,
+                    password = _req$body2.password;
 
-            var passwordHash = authService.register(kind, username, password);
-            passwordHash.then(function (result) {
-                res.send(result);
-            }).catch(function (err) {
-                res.status(500).send('unable to hash key ' + err);
-            });
+                var passwordHash = authService.register(kind, username, password);
+                passwordHash.then(function (result) {
+                    res.send(result);
+                }).catch(function (err) {
+                    res.status(500).send('unable to hash key ' + err);
+                });
+            } catch (exception) {
+                res.status(500).send(exception);
+            }
         });
     }
 };

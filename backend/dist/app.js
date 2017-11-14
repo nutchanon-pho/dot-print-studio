@@ -16,10 +16,6 @@ var _helmet = require('helmet');
 
 var _helmet2 = _interopRequireDefault(_helmet);
 
-var _setupControllers = require('./controllers/setupControllers');
-
-var setupController = _interopRequireWildcard(_setupControllers);
-
 var _AuthControllers = require('./controllers/AuthControllers');
 
 var authController = _interopRequireWildcard(_AuthControllers);
@@ -38,7 +34,6 @@ app.use(_bodyParser2.default.urlencoded({ extended: false }));
 app.use((0, _compression2.default)());
 
 // need to seperate routes here
-setupController.setAdmin(app);
 authController.init(app);
 
 app.get('/ping', function (req, res) {

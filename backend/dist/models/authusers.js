@@ -2,11 +2,7 @@
 
 var _mongodbservice = require('../services/mongodbservice');
 
-var _mongodbservice2 = _interopRequireDefault(_mongodbservice);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Schema = _mongodbservice2.default.Schema;
+var Schema = _mongodbservice.mongoose.Schema;
 
 
 var localAuthSchema = new Schema({
@@ -30,6 +26,6 @@ var authSchema = new Schema({
     accounts: accountsSchema
 });
 
-var AuthUsers = _mongodbservice2.default.model('AuthUsers', authSchema);
+var AuthUsers = _mongodbservice.mongoose.model('AuthUsers', authSchema);
 
 module.exports = AuthUsers;

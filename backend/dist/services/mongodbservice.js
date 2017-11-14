@@ -29,7 +29,26 @@ _mongoose2.default.Promise = _promise2.default;
 _mongoose2.default.connect(config.getDbConnectionString(), options).then(function () {
     console.log('success');
 }, function (err) {
-    console.log(err);
+    console.log('some fucking ' + err);
+}).catch(function (err) {
+    return console.log('yo man ' + err);
 });
 
-module.exports = _mongoose2.default;
+module.exports = {
+    mongoose: _mongoose2.default,
+    findMongo: async function findMongo(schema, query) {
+        try {
+            return await schema.find(query);
+        } catch (error) {
+            console.log('error on select');
+            throw new Error('select error of mongo: ' + error);
+        }
+    },
+    createRecord: async function createRecord(schema, statement) {
+        try {
+            return await schema.create(statement);
+        } catch (error) {
+            throw new Error('create record error of mongo: ' + error);
+        }
+    }
+};
