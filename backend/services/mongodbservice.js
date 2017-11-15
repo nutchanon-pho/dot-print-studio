@@ -23,9 +23,9 @@ mongoose.connect(config.getDbConnectionString(), options).then(
 
 module.exports = {
     mongoose,
-    findMongo: async (schema, query) => {
+    findOneMongo: async (schema, query, projection = {}) => {
         try {
-            return await schema.find(query);
+            return await schema.findOne(query, projection);
         } catch (error) {
             throw new Error(`select error of mongo: ${error}`);
         }

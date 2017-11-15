@@ -36,9 +36,11 @@ _mongoose2.default.connect(config.getDbConnectionString(), options).then(functio
 
 module.exports = {
     mongoose: _mongoose2.default,
-    findMongo: async function findMongo(schema, query) {
+    findOneMongo: async function findOneMongo(schema, query) {
+        var projection = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
         try {
-            return await schema.find(query);
+            return await schema.findOne(query, projection);
         } catch (error) {
             throw new Error('select error of mongo: ' + error);
         }

@@ -25,10 +25,11 @@ module.exports = function () {
                 username: username
             };
             try {
-                var queryResult = await mongoDBService.findMongo(_authusers2.default, query);
+                var queryResult = await mongoDBService.findOneMongo(_authusers2.default, query);
                 var password = queryResult.accounts.local.password;
 
                 var comparedPassword = await bcrypt.compare(inputPassword, password);
+                delete queryResult.accounts;
                 if (comparedPassword === true) {
                     return queryResult;
                 }

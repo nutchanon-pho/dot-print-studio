@@ -10,11 +10,16 @@ module.exports = () => ({
             username,
         };
         try {
-            const queryResult = await mongoDBService.findMongo(AuthUsers, query);
+            const queryResult = await mongoDBService.findOneMongo(AuthUsers, query);
+            const { role } = queryResult;
             const { password } = queryResult.accounts.local;
             const comparedPassword = await bcrypt.compare(inputPassword, password);
             if (comparedPassword === true) {
-                return queryResult;
+                const result = {
+                    username,
+                    role,
+                };
+                return result;
             }
             return {};
         } catch (error) {
