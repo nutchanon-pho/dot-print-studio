@@ -19,9 +19,9 @@ module.exports = {
 
                 var loginInfo = authService.login(kind, username, password);
                 loginInfo.then(function (result) {
-                    res.json(result);
+                    return res.json(result);
                 }).catch(function (err) {
-                    res.status(500).send('server error occured ' + err);
+                    return res.status(500).send('server error occured ' + err);
                 });
             } catch (exception) {
                 res.status(500).send(exception);
@@ -37,9 +37,9 @@ module.exports = {
 
                 var passwordHash = authService.register(kind, username, password);
                 passwordHash.then(function (result) {
-                    res.send(result);
+                    return res.send(result);
                 }).catch(function (err) {
-                    res.status(500).send('unable to hash key ' + err);
+                    return res.status(500).send('unable to hash key ' + err);
                 });
             } catch (exception) {
                 res.status(500).send(exception);

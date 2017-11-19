@@ -8,11 +8,7 @@ module.exports = {
             try {
                 const { kind, username, password } = req.body;
                 const loginInfo = authService.login(kind, username, password);
-                loginInfo.then((result) => {
-                    res.json(result);
-                }).catch((err) => {
-                    res.status(500).send(`server error occured ${err}`);
-                });
+                loginInfo.then(result => res.json(result)).catch(err => res.status(500).send(`server error occured ${err}`));
             } catch (exception) {
                 res.status(500).send(exception);
             }
@@ -22,11 +18,7 @@ module.exports = {
             try {
                 const { kind, username, password } = req.body;
                 const passwordHash = authService.register(kind, username, password);
-                passwordHash.then((result) => {
-                    res.send(result);
-                }).catch((err) => {
-                    res.status(500).send(`unable to hash key ${err}`);
-                });
+                passwordHash.then(result => res.send(result)).catch(err => res.status(500).send(`unable to hash key ${err}`));
             } catch (exception) {
                 res.status(500).send(exception);
             }

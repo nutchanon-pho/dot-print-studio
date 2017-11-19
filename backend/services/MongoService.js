@@ -13,15 +13,11 @@ const options = {
 
 mongoose.Promise = Promise;
 mongoose.connect(config.getDbConnectionString(), options).then(
-    () => {
-        console.log('success');
-    },
-    (err) => {
-        console.log(`some fucking ${err}`);
-    },
-).catch(err => console.log(`yo man ${err}`));
+    () => console.log('success'),
+    err => console.log(`error on connection to mongo ${err}`),
+).catch(err => console.log(`error on connection to mongo ${err}`));
 
-module.exports = {
+module.exports = () => ({
     mongoose,
     findOneMongo: async (schema, query, projection = {}) => {
         try {
@@ -37,4 +33,4 @@ module.exports = {
             throw new Error(`create record error of mongo: ${error}`);
         }
     },
-};
+});

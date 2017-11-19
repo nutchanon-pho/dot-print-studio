@@ -1,8 +1,9 @@
 import * as bcrypt from 'bcrypt';
-import AuthUsers from '../models/authusers';
-import * as mongoDBService from '../services/mongodbservice';
+import Users from '../models/Users';
+import MongoService from '../services/MongoService';
 
 const saltRounds = 10;
+const mongoService = MongoService();
 
 module.exports = () => ({
     login: async (kind, username, inputPassword) => {
@@ -10,15 +11,16 @@ module.exports = () => ({
             username,
         };
         try {
-            const queryResult = await mongoDBService.findOneMongo(AuthUsers, query);
+            const queryResult = await mongoService.findOneMongo(Users, query);
+            console.log(queryResult);
             const { role } = queryResult;
             const { password } = queryResult.accounts.local;
             const comparedPassword = await bcrypt.compare(inputPassword, password);
+            const result = {
+                username,
+                role,
+            };
             if (comparedPassword === true) {
-                const result = {
-                    username,
-                    role,
-                };
                 return result;
             }
             return {};
@@ -31,6 +33,7 @@ module.exports = () => ({
             const hashResult = await bcrypt.hash(password, saltRounds);
             const user = {
                 username,
+                isActive: true,
                 role: 'user',
                 accounts: {
                     local: {
@@ -38,7 +41,7 @@ module.exports = () => ({
                     },
                 },
             };
-            return mongoDBService.createRecord(AuthUsers, user);
+            return mongoService.createRecord(Users, user);
         } catch (error) {
             throw new Error(error);
         }

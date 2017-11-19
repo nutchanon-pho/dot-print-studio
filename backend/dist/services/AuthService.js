@@ -4,19 +4,20 @@ var _bcrypt = require('bcrypt');
 
 var bcrypt = _interopRequireWildcard(_bcrypt);
 
-var _authusers = require('../models/authusers');
+var _Users = require('../models/Users');
 
-var _authusers2 = _interopRequireDefault(_authusers);
+var _Users2 = _interopRequireDefault(_Users);
 
-var _mongodbservice = require('../services/mongodbservice');
+var _MongoService = require('../services/MongoService');
 
-var mongoDBService = _interopRequireWildcard(_mongodbservice);
+var _MongoService2 = _interopRequireDefault(_MongoService);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var saltRounds = 10;
+var mongoService = (0, _MongoService2.default)();
 
 module.exports = function () {
     return {
@@ -25,13 +26,17 @@ module.exports = function () {
                 username: username
             };
             try {
-                var queryResult = await mongoDBService.findOneMongo(_authusers2.default, query);
+                var queryResult = await mongoService.findOneMongo(_Users2.default, query);
+                var role = queryResult.role;
                 var password = queryResult.accounts.local.password;
 
                 var comparedPassword = await bcrypt.compare(inputPassword, password);
-                delete queryResult.accounts;
+                var result = {
+                    username: username,
+                    role: role
+                };
                 if (comparedPassword === true) {
-                    return queryResult;
+                    return result;
                 }
                 return {};
             } catch (error) {
@@ -50,7 +55,7 @@ module.exports = function () {
                         }
                     }
                 };
-                return mongoDBService.createRecord(_authusers2.default, user);
+                return mongoService.createRecord(_Users2.default, user);
             } catch (error) {
                 throw new Error(error);
             }
