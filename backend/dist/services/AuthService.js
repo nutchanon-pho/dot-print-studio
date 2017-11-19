@@ -19,24 +19,30 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var saltRounds = 10;
 var mongoService = (0, _MongoService2.default)();
 
+async function getUserData(username) {
+    var query = {
+        username: username
+    };
+    return mongoService.findOneMongo(_Users2.default, query);
+}
+
 module.exports = function () {
     return {
         login: async function login(kind, username, inputPassword) {
-            var query = {
-                username: username
-            };
             try {
-                var queryResult = await mongoService.findOneMongo(_Users2.default, query);
-                var role = queryResult.role;
-                var password = queryResult.accounts.local.password;
+                var queryResult = await getUserData(username);
+                if (queryResult != null) {
+                    var role = queryResult.role;
+                    var password = queryResult.accounts.local.password;
 
-                var comparedPassword = await bcrypt.compare(inputPassword, password);
-                var result = {
-                    username: username,
-                    role: role
-                };
-                if (comparedPassword === true) {
-                    return result;
+                    var comparedPassword = await bcrypt.compare(inputPassword, password);
+                    var result = {
+                        username: username,
+                        role: role
+                    };
+                    if (comparedPassword === true) {
+                        return result;
+                    }
                 }
                 return {};
             } catch (error) {
@@ -48,6 +54,7 @@ module.exports = function () {
                 var hashResult = await bcrypt.hash(password, saltRounds);
                 var user = {
                     username: username,
+                    isActive: true,
                     role: 'user',
                     accounts: {
                         local: {

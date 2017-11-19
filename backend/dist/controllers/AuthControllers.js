@@ -9,41 +9,30 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var authService = (0, _AuthService2.default)();
 
 module.exports = {
-    init: function init(app) {
-        app.post('/auth/login', function (req, res) {
-            try {
-                var _req$body = req.body,
-                    kind = _req$body.kind,
-                    username = _req$body.username,
-                    password = _req$body.password;
+    login: async function login(req, res) {
+        try {
+            var _req$body = req.body,
+                kind = _req$body.kind,
+                username = _req$body.username,
+                password = _req$body.password;
 
-                var loginInfo = authService.login(kind, username, password);
-                loginInfo.then(function (result) {
-                    return res.json(result);
-                }).catch(function (err) {
-                    return res.status(500).send('server error occured ' + err);
-                });
-            } catch (exception) {
-                res.status(500).send(exception);
-            }
-        });
+            var loginInfo = await authService.login(kind, username, password);
+            res.json(loginInfo);
+        } catch (exception) {
+            res.status(500).send(exception);
+        }
+    },
+    register: async function register(req, res) {
+        try {
+            var _req$body2 = req.body,
+                kind = _req$body2.kind,
+                username = _req$body2.username,
+                password = _req$body2.password;
 
-        app.post('/auth/register', function (req, res) {
-            try {
-                var _req$body2 = req.body,
-                    kind = _req$body2.kind,
-                    username = _req$body2.username,
-                    password = _req$body2.password;
-
-                var passwordHash = authService.register(kind, username, password);
-                passwordHash.then(function (result) {
-                    return res.send(result);
-                }).catch(function (err) {
-                    return res.status(500).send('unable to hash key ' + err);
-                });
-            } catch (exception) {
-                res.status(500).send(exception);
-            }
-        });
+            var result = await authService.register(kind, username, password);
+            res.json(result);
+        } catch (exception) {
+            res.status(500).send('unable to register ' + exception);
+        }
     }
 };
