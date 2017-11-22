@@ -10,3 +10,8 @@ services:
     image: postgres:latest
     ports:
       - "5432:5432"
+
+  dot-print-backend:
+    image: dot-print-backend:latest
+    ports:
+      - "3000:3000"

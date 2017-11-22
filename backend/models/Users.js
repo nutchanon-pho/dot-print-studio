@@ -6,8 +6,8 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
     username: { type: String, required: true },
-    isActive: { type: Boolean, required: true },
-    timeCreated: { type: Date, default: Date.now },
+    is_active: { type: Boolean, required: true },
+    rec_created_when: { type: Date, default: Date.now },
     role: { type: String, required: true },
     accounts: {
         local: {
@@ -27,7 +27,7 @@ const userSchema = new Schema({
         address: {
             address1: String,
             address2: String,
-            postalCode: String,
+            postal_code: String,
         },
     },
     billing: {
@@ -37,15 +37,15 @@ const userSchema = new Schema({
     },
     orders: {
         history: [{
-            orderId: Number,
-            orderedWhen: String,
+            order_id: Number,
+            order_created_when: String,
         }],
         tracking: [{
-            orderId: { type: Number },
-            orderItemId: { type: Number },
+            order_id: { type: Number },
+            order_created_when: { type: Number },
         }],
     },
-    resetPassword: {
+    reset_password: {
         token: String,
         expires: Date,
     },
