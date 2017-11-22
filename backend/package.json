@@ -1,18 +1,18 @@
 {
-  "name": "test-express-2",
+  "name": "dot-print-backend",
   "version": "1.0.0",
-  "description": "test express again",
+  "description": "dot print backend",
   "main": "app.js",
   "scripts": {
     "start": "npm run build && babel-watch app.js",
-    "test": "npm run build",
+    "test": "npm install && npm run unit-tests",
     "build": " npm install && npm run lint && rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "lint": "esw .",
     "lint:watch": "esw . -w",
     "test:single": "npm run unit-tests && npm run integration-tests",
-    "unit-tests": "mocha --check-leaks --harmony app/**/*.spec.js",
-    "unit-tests:watch": "mocha --check-leaks --harmony app/**/*.spec.js -w",
-    "integration-tests": "mocha --check-leaks --harmony app/**/*.integration.js",
+    "unit-tests": "mocha --check-leaks --harmony test/**/*.spec.js",
+    "unit-tests:watch": "mocha --check-leaks --harmony test/**/*.spec.js -w",
+    "integration-tests": "mocha --check-leaks --harmony integration-test/**/*.integration.js",
     "coverage": "npm run coverage-unit-tests && npm run coverage-integration-tests",
     "coverage-unit-tests": "istanbul cover --root app --dir ./coverage/unit -x **/**/*.integration.js -x **/**/*.spec.js ./node_modules/mocha/bin/_mocha -- --check-leaks --harmony --grep unit app/**/*.js",
     "coverage-integration-tests": "istanbul cover --root app --dir ./coverage/integration -x **/**/*.integration.js -x **/**/*.spec.js ./node_modules/mocha/bin/_mocha -- --check-leaks --harmony --grep integration app/**/*.js"
@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-watch": "^2.0.7",
     "chai": "^4.1.2",
