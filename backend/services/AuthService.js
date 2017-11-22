@@ -6,34 +6,46 @@ const saltRounds = 10;
 const mongoService = MongoService();
 
 async function getUserData(username) {
-    const query = {
-        username,
-    };
+    const query = { username };
     return mongoService.findOneMongo(Users, query);
 }
 
+function returnUserDataFiltered(userData) {
+    const {
+        _id,
+        username,
+        role,
+        details,
+        orders,
+    } = userData;
+    const result = {
+        _id,
+        username,
+        role,
+        details,
+        orders,
+    };
+    return result;
+}
+
 module.exports = () => ({
-    login: async (kind, username, inputPassword) => {
+    login: async (username, inputPassword) => {
         try {
             const queryResult = await getUserData(username);
             if (queryResult != null) {
-                const { role } = queryResult;
                 const { password } = queryResult.accounts.local;
                 const comparedPassword = await bcrypt.compare(inputPassword, password);
-                const result = {
-                    username,
-                    role,
-                };
                 if (comparedPassword === true) {
+                    const result = returnUserDataFiltered(queryResult);
                     return result;
                 }
             }
-            return {};
+            return null;
         } catch (error) {
             throw new Error(error);
         }
     },
-    register: async (kind, username, password) => {
+    register: async (username, password) => {
         try {
             const checkUserExists = await getUserData(username);
             if (checkUserExists != null) {
@@ -42,7 +54,7 @@ module.exports = () => ({
             const hashResult = await bcrypt.hash(password, saltRounds);
             const user = {
                 username,
-                isActive: true,
+                is_active: true,
                 role: 'user',
                 accounts: {
                     local: {
@@ -50,7 +62,9 @@ module.exports = () => ({
                     },
                 },
             };
-            return mongoService.createRecord(Users, user);
+            const recordData = mongoService.createRecord(Users, user);
+            const result = returnUserDataFiltered(recordData);
+            return result;
         } catch (error) {
             throw new Error(error);
         }

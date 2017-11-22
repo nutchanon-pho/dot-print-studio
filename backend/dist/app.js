@@ -16,6 +16,10 @@ var _helmet = require('helmet');
 
 var _helmet2 = _interopRequireDefault(_helmet);
 
+var _passport = require('./middlewares/passport');
+
+var _passport2 = _interopRequireDefault(_passport);
+
 var _AuthRoutes = require('./routes/AuthRoutes');
 
 var _AuthRoutes2 = _interopRequireDefault(_AuthRoutes);
@@ -30,9 +34,10 @@ var app = (0, _express2.default)();
 var port = process.env.PORT || 3000;
 
 app.use((0, _helmet2.default)());
+app.use((0, _compression2.default)());
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
-app.use((0, _compression2.default)());
+app.use(_passport2.default.initialize());
 
 // routes
 app.use('/healthCheck', _HealthCheckRoutes2.default);

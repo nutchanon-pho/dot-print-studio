@@ -28,7 +28,7 @@ async function getUserData(username) {
 
 module.exports = function () {
     return {
-        login: async function login(kind, username, inputPassword) {
+        login: async function login(username, inputPassword) {
             try {
                 var queryResult = await getUserData(username);
                 if (queryResult != null) {
@@ -36,11 +36,11 @@ module.exports = function () {
                     var password = queryResult.accounts.local.password;
 
                     var comparedPassword = await bcrypt.compare(inputPassword, password);
-                    var result = {
-                        username: username,
-                        role: role
-                    };
                     if (comparedPassword === true) {
+                        var result = {
+                            username: username,
+                            role: role
+                        };
                         return result;
                     }
                 }
@@ -51,6 +51,10 @@ module.exports = function () {
         },
         register: async function register(kind, username, password) {
             try {
+                var checkUserExists = await getUserData(username);
+                if (checkUserExists != null) {
+                    throw new Error('user ' + username + ' exists');
+                }
                 var hashResult = await bcrypt.hash(password, saltRounds);
                 var user = {
                     username: username,
