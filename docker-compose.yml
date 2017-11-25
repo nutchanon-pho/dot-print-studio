@@ -1,0 +1,26 @@
+version: "2"
+
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+  
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+  
+  dot-print-frontend:
+    image: kkarczmarczyk/node-yarn
+    ports:
+     - "80:3000"
+    volumes:
+     - ./frontend:/home/app/dot-print-frontend
+     - /home/app/dot-print-frontend/node_modules
+    command: bash -c "cd /home/app/dot-print-frontend && yarn install && npm start"
+
+  dot-print-backend:
+    image: dot-print-backend:latest
+    ports:
+      - "3000:3000"
