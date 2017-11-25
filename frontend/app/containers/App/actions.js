@@ -1,14 +1,23 @@
-import { fromJS } from 'immutable';
-import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from './constants';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT_SUCCESS } from './constants';
 
 
 export function login() {
   return {
+    type: LOGIN_REQUEST,
+  };
+}
+
+export function loginSuccess({ data }) {
+  return {
     type: LOGIN_SUCCESS,
-    user: fromJS({
-      firstName: 'Nutchanon',
-      lastName: 'Pho-ngoen',
-    }),
+    user: data,
+  };
+}
+
+export function loginFailed(error) {
+  return {
+    type: LOGIN_FAILED,
+    error,
   };
 }
 
