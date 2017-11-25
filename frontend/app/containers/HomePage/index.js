@@ -123,4 +123,3 @@ HomePage.propTypes = {
   username: PropTypes.string,
   onChangeUsername: PropTypes.func,
 };
-
