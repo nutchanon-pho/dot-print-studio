@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Icon, Button, Grid, Form, Header } from 'semantic-ui-react';
+import injectSaga from 'utils/injectSaga';
+import saga from 'containers/App/saga';
 
 import { login } from 'containers/App/actions';
 
@@ -65,8 +67,10 @@ LoginForm.propTypes = {
   login: PropTypes.func.isRequired,
 };
 
+const withSaga = injectSaga({ key: 'global', saga });
 const withConnect = connect(null, { login });
 
 export default compose(
+  withSaga,
   withConnect
 )(LoginForm);
