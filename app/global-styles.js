@@ -21,4 +21,8 @@ injectGlobal`
     min-width: 100%;
   }
 
+  a, a:hover {
+    color: unset;
+  }
+
 `;

@@ -1,11 +1,7 @@
 {
-  "name": "react-boilerplate",
-  "version": "3.5.0",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/react-boilerplate/react-boilerplate.git"
-  },
+  "name": "dot-print",
+  "version": "0.1.0",
+  "description": "Dot Print",
   "engines": {
     "npm": ">=3",
     "node": ">=5"
