@@ -18,6 +18,11 @@ const makeSelectLoginLoading = () => createSelector(
   (globalState) => globalState.get('loginLoading')
 );
 
+const makeSelectLoginError = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('loginError')
+);
+
 const makeSelectLoading = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get('loading')
@@ -46,4 +51,5 @@ export {
   makeSelectRepos,
   makeSelectLocation,
   makeSelectLoginLoading,
+  makeSelectLoginError,
 };

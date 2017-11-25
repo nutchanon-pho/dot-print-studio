@@ -34,7 +34,8 @@ function appReducer(state = initialState, action) {
         .set('loginLoading', false);
     case LOGIN_FAILED:
       return state
-          .set('loginError', action.error);
+          .set('loginError', action.error)
+          .set('loginLoading', false);
     case LOGOUT_SUCCESS:
       return state
           .set('currentUser', null);
