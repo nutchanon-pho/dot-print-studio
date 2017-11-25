@@ -5,9 +5,9 @@ const { mongoose } = mongoService;
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-    username: { type: String, required: true },
-    is_active: { type: Boolean, required: true },
-    rec_created_when: { type: Date, default: Date.now },
+    email: { type: String, required: true },
+    isActive: { type: Boolean, required: true },
+    recCreatedWhen: { type: Date, default: Date.now },
     role: { type: String, required: true },
     accounts: {
         local: {
@@ -27,13 +27,14 @@ const userSchema = new Schema({
         address: {
             address1: String,
             address2: String,
-            postal_code: String,
+            postalCode: String,
         },
     },
     billing: {
-        name: String,
-        type: String,
-        number: String,
+        nameOnCard: String,
+        brand: String,
+        last4Digits: String,
+        customerToken: String,
     },
     orders: {
         history: [{
