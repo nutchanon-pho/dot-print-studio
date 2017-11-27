@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Menu, Image, Responsive, Icon } from 'semantic-ui-react';
+import { Menu, Image, Responsive, Icon, Button, Segment, Sidebar, Header } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -22,6 +22,7 @@ import reducer from './reducer';
 import messages from './messages';
 import { makeSelectActiveMenu } from './selectors';
 import { selectMenu } from './actions';
+import { menuList } from './constants';
 
 
 const paddingForItems = { paddingRight: '75px' };
@@ -43,7 +44,6 @@ const Register = () => (
 );
 
 class DotPrintMenu extends Component {
-
   handleItemClick = (e, { name }) => this.props.selectMenu(name)
 
   render() {
@@ -61,40 +61,28 @@ class DotPrintMenu extends Component {
         <Responsive {...Responsive.onlyComputer}>
           <Image src={DotPrintLogo} style={{ width: '150px', position: 'absolute', marginTop: '35px', marginLeft: '55px' }} />
         </Responsive>
-        <Menu stackable style={{ paddingTop: '55px', paddingRight: '100px' }} text size="large" floated="right">
-          <Menu.Item as="div" style={paddingForItems} name="home" active={activeMenu === 'home'} onClick={this.handleItemClick}>
-            <Link to="/">
-              <b><FormattedMessage {...messages.menuHome} /></b>
-            </Link>
-          </Menu.Item>
-          <Menu.Item as="div" style={paddingForItems} name="shop" active={activeMenu === 'shop'} onClick={this.handleItemClick} >
-            <Link to="/shop">
-              <FormattedMessage {...messages.menuShop} />
-            </Link>
-          </Menu.Item>
-          <Menu.Item as="div" style={paddingForItems} name="gallery" active={activeMenu === 'gallery'} onClick={this.handleItemClick}>
-            <Link to="/gallery">
-              <FormattedMessage {...messages.menuGallery} />
-            </Link>
-          </Menu.Item>
-          <Menu.Item style={paddingForItems} name="inspiration" active={activeMenu === 'inspiration'} onClick={this.handleItemClick}>
-            <FormattedMessage {...messages.menuInspiration} />
-          </Menu.Item>
-          <Menu.Item style={paddingForItems} name="ourStory" active={activeMenu === 'ourStory'} onClick={this.handleItemClick}>
-            <FormattedMessage {...messages.menuOurStory} />
-          </Menu.Item>
-          {!currentUser && <Login />}
-          {!currentUser && <Responsive {...Responsive.onlyComputer}><Menu.Item content="|" /></Responsive>}
-          {!currentUser && <Register />}
-          {currentUser && <Menu.Item as="div" style={paddingForItems}>
-            <Link to="/profile">
-              <strong>{userDetails.firstname}</strong>
-            </Link>
-          </Menu.Item>}
-          <Menu.Item name="cart">
-            <Icon name="cart" size="large" />
-          </Menu.Item>
-        </Menu>
+        <Responsive as="div" {...Responsive.onlyComputer}>
+          <Menu stackable style={{ paddingTop: '55px', paddingRight: '100px' }} text size="large" floated="right">
+            {menuList.map((eachMenu) => (
+              <Menu.Item as="div" key={eachMenu.name} style={paddingForItems} name="home" active={activeMenu === eachMenu.name} onClick={this.handleItemClick}>
+                <Link to={eachMenu.link}>
+                  <b><FormattedMessage {...messages[eachMenu.text]} /></b>
+                </Link>
+              </Menu.Item>
+            ))}
+            {!currentUser && <Login />}
+            {!currentUser && <Responsive {...Responsive.onlyComputer}><Menu.Item content="|" /></Responsive>}
+            {!currentUser && <Register />}
+            {currentUser && <Menu.Item as="div" style={paddingForItems}>
+              <Link to="/profile">
+                <strong>{userDetails.firstname}</strong>
+              </Link>
+              </Menu.Item>}
+            <Menu.Item name="cart">
+              <Icon name="cart" size="large" />
+            </Menu.Item>
+          </Menu>
+        </Responsive>
         <div style={{ clear: 'both' }} />
       </div>
     );
