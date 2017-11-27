@@ -48,6 +48,11 @@ class DotPrintMenu extends Component {
 
   render() {
     const { activeMenu, currentUser } = this.props;
+
+    let userDetails;
+    if (currentUser) {
+      userDetails = currentUser.get('details').toJS();
+    }
     return (
       <div>
         <Responsive {...Responsive.onlyMobile}>
@@ -83,7 +88,7 @@ class DotPrintMenu extends Component {
           {!currentUser && <Register />}
           {currentUser && <Menu.Item as="div" style={paddingForItems}>
             <Link to="/profile">
-              <strong>{currentUser.get('firstName')}</strong>
+              <strong>{userDetails.firstname}</strong>
             </Link>
           </Menu.Item>}
           <Menu.Item name="cart">
