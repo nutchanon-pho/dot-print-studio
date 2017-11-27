@@ -19,8 +19,9 @@ import { Link, Redirect } from 'react-router-dom';
 import { Route, Switch } from 'react-router';
 
 import AccountDetails from 'containers/AccountDetails';
-import BillingDetails from 'containers/BillingDetails';
+import ShippingAddress from 'containers/ShippingAddress';
 import PurchaseHistory from 'containers/PurchaseHistory';
+import PaymentDetails from 'containers/PaymentDetails';
 import PurchaseHistoryDetail from 'containers/PurchaseHistoryDetail/Loadable';
 
 import { logout } from 'containers/App/actions';
@@ -60,17 +61,22 @@ export class ProfilePage extends React.Component { // eslint-disable-line react/
                 <Link to="/profile/accountDetails">
                   <Menu.Item as="div" name="accountDetails" active={activeItem === 'accountDetails'} onClick={this.handleItemClick}>
                     ACCOUNT DETAILS
-                </Menu.Item>
+                  </Menu.Item>
                 </Link>
                 <Link to="/profile/purchaseHistory">
                   <Menu.Item as="div" name="purchaseHistory" active={activeItem === 'purchaseHistory'} onClick={this.handleItemClick}>
                     PURCHASE HISTORY
-                </Menu.Item>
+                  </Menu.Item>
                 </Link>
-                <Link to="/profile/billingDetails">
-                  <Menu.Item as="div" name="billingDetails" active={activeItem === 'billingDetails'} onClick={this.handleItemClick}>
-                    BILLING DETAILS
-                </Menu.Item>
+                <Link to="/profile/shippingAddress">
+                  <Menu.Item as="div" name="shippingAddress" active={activeItem === 'shippingAddress'} onClick={this.handleItemClick}>
+                    SHIPPING ADDRESS
+                  </Menu.Item>
+                </Link>
+                <Link to="/profile/paymentDetails">
+                  <Menu.Item as="div" name="paymentDetails" active={activeItem === 'paymentDetails'} onClick={this.handleItemClick}>
+                    PAYMENT DETAILS
+                  </Menu.Item>
                 </Link>
               </Menu>
             </Grid.Column>
@@ -80,7 +86,8 @@ export class ProfilePage extends React.Component { // eslint-disable-line react/
                 <Route path="/profile/accountDetails" component={AccountDetails} />
                 <Route path="/profile/purchaseHistory/:id" component={PurchaseHistoryDetail} />
                 <Route path="/profile/purchaseHistory" component={PurchaseHistory} />
-                <Route path="/profile/billingDetails" component={BillingDetails} />
+                <Route path="/profile/shippingAddress" component={ShippingAddress} />
+                <Route path="/profile/paymentDetails" component={PaymentDetails} />
               </Switch>
             </Grid.Column>
           </Grid>
