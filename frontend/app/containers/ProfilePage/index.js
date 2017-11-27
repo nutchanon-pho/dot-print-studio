@@ -4,6 +4,7 @@
  *
  */
 
+import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
@@ -32,9 +33,13 @@ export class ProfilePage extends React.Component { // eslint-disable-line react/
   render() {
     const { activeItem } = this.state || {};
     const { currentUser } = this.props;
+
+    let currentUserJS;
     if (!currentUser) {
       return (<Redirect to="/" />);
     }
+    currentUserJS = currentUser.toJS();
+
     return (
       <article>
         <Helmet>
@@ -46,8 +51,8 @@ export class ProfilePage extends React.Component { // eslint-disable-line react/
           <Grid stackable>
             <Grid.Column computer={3} mobile={8}>
               <Header textAlign="center" as="h1">
-                {`${currentUser.get('firstName')}`}<br />
-                {`${currentUser.get('lastName')}`}
+                {`${_.get(currentUserJS, 'details.firstname')}`}<br />
+                {`${_.get(currentUserJS, 'details.lastname')}`}<br />
               </Header>
               <Image src={'https://api.adorable.io/avatars/285/abott@adorable.png'} size="medium" className="circular" />
               <Segment basic textAlign="center"><Button color="red" onClick={() => this.props.logout()}>Logout</Button></Segment>
