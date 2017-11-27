@@ -30,9 +30,13 @@ export class PaymentDetails extends React.Component { // eslint-disable-line rea
   }
 
   componentDidMount() {
-    Payment.formatCardNumber(document.querySelector('[name="number"]'));
-    Payment.formatCardExpiry(document.querySelector('[name="expiry"]'));
-    Payment.formatCardCVC(document.querySelector('[name="cvc"]'));
+    try {
+      Payment.formatCardNumber(document.querySelector('[name="number"]'));
+      Payment.formatCardExpiry(document.querySelector('[name="expiry"]'));
+      Payment.formatCardCVC(document.querySelector('[name="cvc"]'));
+    } catch (e) {
+      // ignore
+    }
   }
 
   handleInputFocus = (e) => {
@@ -60,10 +64,6 @@ export class PaymentDetails extends React.Component { // eslint-disable-line rea
     }
   };
 
-  handleCallback(type, isValid) {
-    console.log(type, isValid); // eslint-disable-line no-console
-  }
-
   render() {
     const { name, number, expiry, cvc, focused, isChangeButtonShow } = this.state;
     const formDisplay = !isChangeButtonShow ? {} : { display: 'none' };
@@ -75,7 +75,6 @@ export class PaymentDetails extends React.Component { // eslint-disable-line rea
           expiry={expiry}
           cvc={cvc}
           focused={focused}
-          callback={this.handleCallback}
         />
         {isChangeButtonShow && <Segment basic textAlign="center">
           <Button type="submit" color="green" onClick={() => this.setState({ isChangeButtonShow: false })}>
@@ -85,16 +84,16 @@ export class PaymentDetails extends React.Component { // eslint-disable-line rea
         <br />
         <Form style={formDisplay}>
           <Form.Field>
-            <Form.Input name="number" label="CARD NUMBER" type="text" onKeyUp={this.handleInputChange} onFocus={this.handleInputFocus} />
+            <Form.Input name="number" value={number} label="CARD NUMBER" type="text" onKeyUp={this.handleInputChange} onFocus={this.handleInputFocus} />
           </Form.Field>
           <Form.Field>
-            <Form.Input name="name" label="FULL NAME" type="text" onKeyUp={this.handleInputChange} onFocus={this.handleInputFocus} />
+            <Form.Input name="name" value={name} label="FULL NAME" type="text" onKeyUp={this.handleInputChange} onFocus={this.handleInputFocus} />
           </Form.Field>
           <Form.Field>
-            <Form.Input name="expiry" label="EXPIRY" type="text" onKeyUp={this.handleInputChange} onFocus={this.handleInputFocus} />
+            <Form.Input name="expiry" value={expiry} label="EXPIRY" type="text" onKeyUp={this.handleInputChange} onFocus={this.handleInputFocus} />
           </Form.Field>
           <Segment basic textAlign="right">
-            <Button type="submit">
+            <Button type="submit" primary>
               SUBMIT
             </Button>
           </Segment>
