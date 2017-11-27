@@ -54,7 +54,6 @@ export class ProfilePage extends React.Component { // eslint-disable-line react/
                 {`${_.get(currentUserJS, 'details.firstname')}`}<br />
                 {`${_.get(currentUserJS, 'details.lastname')}`}<br />
               </Header>
-              <Image centered src={'https://api.adorable.io/avatars/285/abott@adorable.png'} size="medium" className="circular" />
               <Segment basic textAlign="center"><Button color="red" onClick={() => this.props.logout()}>Logout</Button></Segment>
               <Menu vertical fluid>
                 <Link to="/profile/accountDetails">
