@@ -20,13 +20,17 @@ var _passport = require('./middlewares/passport');
 
 var _passport2 = _interopRequireDefault(_passport);
 
+var _HealthCheckRoutes = require('./routes/HealthCheckRoutes');
+
+var _HealthCheckRoutes2 = _interopRequireDefault(_HealthCheckRoutes);
+
 var _AuthRoutes = require('./routes/AuthRoutes');
 
 var _AuthRoutes2 = _interopRequireDefault(_AuthRoutes);
 
-var _HealthCheckRoutes = require('./routes/HealthCheckRoutes');
+var _UserRoutes = require('./routes/UserRoutes');
 
-var _HealthCheckRoutes2 = _interopRequireDefault(_HealthCheckRoutes);
+var _UserRoutes2 = _interopRequireDefault(_UserRoutes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42,5 +46,6 @@ app.use(_passport2.default.initialize());
 // routes
 app.use('/healthCheck', _HealthCheckRoutes2.default);
 app.use('/auth', _AuthRoutes2.default);
+app.use('/user', _UserRoutes2.default);
 
 app.listen(port);

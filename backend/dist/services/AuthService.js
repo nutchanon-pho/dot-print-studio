@@ -20,10 +20,25 @@ var saltRounds = 10;
 var mongoService = (0, _MongoService2.default)();
 
 async function getUserData(username) {
-    var query = {
-        username: username
-    };
+    var query = { username: username };
     return mongoService.findOneMongo(_Users2.default, query);
+}
+
+function returnUserDataFiltered(userData) {
+    var _id = userData._id,
+        username = userData.username,
+        role = userData.role,
+        details = userData.details,
+        orders = userData.orders;
+
+    var result = {
+        _id: _id,
+        username: username,
+        role: role,
+        details: details,
+        orders: orders
+    };
+    return result;
 }
 
 module.exports = function () {
@@ -32,24 +47,20 @@ module.exports = function () {
             try {
                 var queryResult = await getUserData(username);
                 if (queryResult != null) {
-                    var role = queryResult.role;
                     var password = queryResult.accounts.local.password;
 
                     var comparedPassword = await bcrypt.compare(inputPassword, password);
                     if (comparedPassword === true) {
-                        var result = {
-                            username: username,
-                            role: role
-                        };
+                        var result = returnUserDataFiltered(queryResult);
                         return result;
                     }
                 }
-                return {};
+                return null;
             } catch (error) {
-                throw new Error(error);
+                throw error;
             }
         },
-        register: async function register(kind, username, password) {
+        register: async function register(username, password) {
             try {
                 var checkUserExists = await getUserData(username);
                 if (checkUserExists != null) {
@@ -66,9 +77,11 @@ module.exports = function () {
                         }
                     }
                 };
-                return mongoService.createRecord(_Users2.default, user);
+                var recordData = await mongoService.createRecord(_Users2.default, user);
+                var result = returnUserDataFiltered(recordData);
+                return result;
             } catch (error) {
-                throw new Error(error);
+                throw error;
             }
         }
     };
