@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import CropperComponent from './CropperComponent';
 import CropperPreview from 'components/CropperPreview';
-import sample from './sample.jpg';
 import { createStructuredSelector } from 'reselect';
-import { makeSelectUploadedImage } from './selectors';
+import { makeSelectUploadedImage, makeSelectCropper } from './selectors';
+import { initializeCropper } from './actions';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import _ from 'lodash';
 import { Button, Segment, Icon, Message } from 'semantic-ui-react';
+import injectReducer from 'utils/injectReducer';
+import reducer from './reducer';
 
 class Cropper extends Component {
   constructor(props) {
@@ -17,34 +20,24 @@ class Cropper extends Component {
     };
   }
 
-  onCrop() {
-    // const vm = this;
-    // function run() {
-    //   vm.setState({
-    //     previewedImage: vm.cropper.getCroppedCanvas().toDataURL(),
-    //   });
-    // }
-
-    // const realFunction =
-    //   _.debounce(run, 5000);
-
-    // realFunction();
+  onRef = (el) => {
+    const cropper = el != null ? el.cropper : null;
+    this.props.initializeCropper(cropper);
   }
 
   rotateLeft = () => {
-    this.cropper.rotate(-90);
+    this.props.cropper.rotate(-90);
   }
 
   rotateRight = () => {
-    this.cropper.rotate(90);
+    this.props.cropper.rotate(90);
   }
 
   reset = () => {
-    this.cropper.reset();
+    this.props.cropper.reset();
   }
 
   render() {
-    console.log('Cropper render');
     return (
       <div>
         <Segment basic textAlign="center">
@@ -65,7 +58,7 @@ class Cropper extends Component {
         <CropperComponent
           imageSrc={this.props.uploadedImage}
           aspectRatio={this.props.aspectRatio}
-          inputRef={(el) => { this.cropper = el != null ? el.cropper : null; }}
+          inputRef={this.onRef}
           onCrop={this.onCrop}
         />
         {/* <CropperPreview previewedImage={this.state.previewedImage} /> */}
@@ -75,11 +68,15 @@ class Cropper extends Component {
 }
 
 const mapStateToProps = createStructuredSelector({
+  cropper: makeSelectCropper(),
   uploadedImage: makeSelectUploadedImage(),
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   onFileUpload: bindActionCreators(uploadImage, dispatch),
-// });
+const withReducer = injectReducer({ key: 'cropper', reducer });
 
-export default connect(mapStateToProps)(Cropper);
+const withConnect = connect(mapStateToProps, { initializeCropper });
+
+export default compose(
+  withReducer,
+  withConnect,
+)(Cropper);

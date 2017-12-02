@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
 
-const selectUploadImage = (state) => state.get('uploadImage');
+const selectCropper = (state) => state.get('cropper');
 
 const makeSelectUploadedImage = () => createSelector(
-    selectUploadImage,
+  selectCropper,
   (state) => {
     if (state) {
       return state.get('uploadedImage');
@@ -12,7 +12,11 @@ const makeSelectUploadedImage = () => createSelector(
   }
 );
 
+const makeSelectCropper = () => createSelector(selectCropper, (state) => (state.get('cropper')));
+const makeSelectCroppedImage = () => createSelector(selectCropper, (state) => (state.get('croppedImage')));
+
 export {
-    selectUploadImage,
     makeSelectUploadedImage,
+    makeSelectCropper,
+    makeSelectCroppedImage,
 };

@@ -16,14 +16,21 @@ import Cropper from 'containers/Cropper';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectProductConfigurationPage from './selectors';
+import { makeSelectCroppedImage } from 'containers/Cropper/selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { updateForm } from './actions';
+import { cropImage } from 'containers/Cropper/actions';
 import { productTypeOptions, layoutOptions, sizeOptions, posterPaperTypeOptions, paperSizeInfoMap } from './constants';
 
 export class ProductConfigurationPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   state = { size: 'A1', layout: 'portrait' };
+
+  onNext = () => {
+    this.props.updateForm(this.state);
+    this.props.cropImage();
+  };
 
   handleChange = (e, { name, value }) => { this.setState({ [name]: value }); }
 
@@ -38,8 +45,17 @@ export class ProductConfigurationPage extends React.Component { // eslint-disabl
               <Form.Select value={layout} name="layout" label="Layout" options={layoutOptions} placeholder="Layout" onChange={this.handleChange} />
               <Form.Select value={size} name="size" label="Size" options={sizeOptions} placeholder="Size" onChange={this.handleChange} />
               {productType === 'Poster' && <Form.Select value={paperType} name="paperType" label="Paper Type" options={posterPaperTypeOptions} placeholder="Paper Type" onChange={this.handleChange} />}
-              <div style={{ textAlign: 'right' }}><Button onClick={() => this.props.updateForm(this.state)} color="green">Next</Button></div>
+              <div style={{ textAlign: 'right' }}>
+                <Button onClick={this.props.cropImage} color="blue">Preview</Button>
+                <Button onClick={this.onNext} color="green">Next</Button>
+              </div>
             </Form>
+          </Segment>
+          <Segment>
+            <Header as="h1">Preview</Header>
+            <div style={{ border: '2px', borderColor: 'black' }}>
+              <Image centered src={this.props.croppedImage} />
+            </div>
           </Segment>
         </Grid.Column>
         <Grid.Column textAlign="center">
@@ -51,14 +67,14 @@ export class ProductConfigurationPage extends React.Component { // eslint-disabl
 }
 
 ProductConfigurationPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   productconfigurationpage: makeSelectProductConfigurationPage(),
+  croppedImage: makeSelectCroppedImage(),
 });
 
-const withConnect = connect(mapStateToProps, { updateForm });
+const withConnect = connect(mapStateToProps, { updateForm, cropImage });
 
 const withReducer = injectReducer({ key: 'productConfiguration', reducer });
 const withSaga = injectSaga({ key: 'productConfiguration', saga });
