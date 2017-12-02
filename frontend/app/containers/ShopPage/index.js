@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import Menu from 'containers/Menu';
 import { Grid, Icon, Segment, Step, Image, Header, Button, Form } from 'semantic-ui-react';
@@ -47,6 +47,11 @@ const productTypeOptions = [
   { key: 'canvas', text: 'Canvas', value: 'Canvas' },
 ];
 
+const layoutOptions = [
+  { key: 'portrait', text: 'Portrait', value: 'portrait' },
+  { key: 'landscape', text: 'Landscape', value: 'landscape' },
+];
+
 const sizeOptions = [
   { key: 'a1', text: 'A1', value: 'A1' },
   { key: 'a2', text: 'A2', value: 'A2' },
@@ -66,21 +71,30 @@ const paperSizeInfoMap = {
   A4: { aspectRatio: { portrait: 210.0 / 297.0, landscape: 297.0 / 210.0 } },
 };
 
-const Step2 = ({ state: { productType, size, paperType, layout }, handleChange }) => (
-  <Grid stackable divided columns={2}>
-    <Grid.Column>
+class Step2 extends Component {
+  state = { size: 'A1', layout: 'portrait' };
+
+  handleChange = (e, { name, value }) => { this.setState({ [name]: value }); }
+
+  render() {
+    const { productType, size, paperType, layout } = this.state;
+    return (
+      <Grid stackable divided columns={2}>
+        <Grid.Column>
       <Segment>
         <Form>
-          <Form.Select value={productType} name="productType" label="Product Type" options={productTypeOptions} placeholder="Product Type" onChange={handleChange} />
-          <Form.Select value={size} name="size" label="Size" options={sizeOptions} placeholder="Size" onChange={handleChange} />
-          <Form.Select value={paperType} name="paperType" label="Paper Type" options={posterPaperTypeOptions} placeholder="Paper Type" onChange={handleChange} />
+          <Form.Select value={productType} name="productType" label="Product Type" options={productTypeOptions} placeholder="Product Type" onChange={this.handleChange} />
+          <Form.Select value={layout} name="layout" label="Layout" options={layoutOptions} placeholder="Layout" onChange={this.handleChange} />
+          <Form.Select value={size} name="size" label="Size" options={sizeOptions} placeholder="Size" onChange={this.handleChange} />
+          <Form.Select value={paperType} name="paperType" label="Paper Type" options={posterPaperTypeOptions} placeholder="Paper Type" onChange={this.handleChange} />
         </Form>
       </Segment>
     </Grid.Column>
-    <Grid.Column><Cropper aspectRatio={paperSizeInfoMap[size].aspectRatio[layout]} /></Grid.Column>
-  </Grid>
-);
-
+        <Grid.Column><Cropper aspectRatio={paperSizeInfoMap[size].aspectRatio[layout]} /></Grid.Column>
+      </Grid>
+    );
+  }
+}
 
 class ShopPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   state = { size: 'A1', layout: 'portrait' };

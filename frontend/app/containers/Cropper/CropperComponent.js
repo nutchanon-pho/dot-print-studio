@@ -6,7 +6,7 @@ const CropperComponent = (props) => (
   <Cropper
     style={{ height: '800px', width: '100%' }}
     aspectRatio={props.aspectRatio}
-    viewMode={0}
+    viewMode={1}
     src={props.imageSrc}
     crop={props.onCrop}
     zoom={props.onCrop}
