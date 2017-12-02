@@ -55,7 +55,7 @@ class Cropper extends Component {
         </Segment>
         <CropperComponent
           imageSrc={this.props.uploadedImage}
-          aspectRatio={297 / 210}
+          aspectRatio={this.props.aspectRatio}
           inputRef={(el) => { this.cropper = el != null ? el.cropper : null; }}
           onCrop={this.onCrop}
         />
