@@ -11,14 +11,14 @@ import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-
+import { Link } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import ShopPage from 'containers/ShopPage/Loadable';
 import AdminPage from 'containers/AdminPage/Loadable';
 import GalleryPage from 'containers/GalleryPage/Loadable';
 import ProfilePage from 'containers/ProfilePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import { Menu, Image, Responsive, Icon, Button, Grid, Segment, Sidebar, Header } from 'semantic-ui-react';
+import { Menu, Responsive, Icon, Segment, Sidebar } from 'semantic-ui-react';
 
 import { menuList } from 'containers/Menu/constants';
 import messages from 'containers/Menu/messages';
@@ -27,11 +27,36 @@ const AppWrapper = styled.div``;
 const PushableWrapper = styled(Sidebar.Pushable)`
   @media (max-width: 768px) {
     margin-top: 51px !important;
+    overflow: hidden !important;
+  }
+`;
+
+const SidebarPusher = styled(Sidebar.Pusher)`
+  @media (max-width: 768px) {
+    height: 100vh;
+    overflow: scroll !important;
   }
 `;
 
 export default class App extends Component {
-  state = { sidebarVisible: false }
+  constructor(props) {
+    super(props);
+    this.state = { width: '0', height: '0', sidebarVisible: false };
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }
 
   toggleSidebarVisibility = () => this.setState({ sidebarVisible: !this.state.sidebarVisible })
 
@@ -57,12 +82,14 @@ export default class App extends Component {
         <PushableWrapper as={Segment}>
           <Sidebar as={Menu} animation="overlay" width="thin" visible={sidebarVisible} icon="labeled" vertical inverted>
             {menuList.map((eachMenu) => (
-              <Menu.Item name={eachMenu.name}>
-                <FormattedMessage {...messages[eachMenu.text]} />
-              </Menu.Item>
+              <Link key={eachMenu.name} to={eachMenu.link} onClick={this.hideSidebar}>
+                <Menu.Item as="div" name={eachMenu.name}>
+                  <FormattedMessage {...messages[eachMenu.text]} />
+                </Menu.Item>
+              </Link>
             ))}
           </Sidebar>
-          <Sidebar.Pusher onClick={this.hideSidebar}>
+          <SidebarPusher onClick={this.hideSidebar}>
             <Switch>
               <Route exact path="/" component={HomePage} />
               <Route exact path="/shop" component={ShopPage} />
@@ -71,7 +98,7 @@ export default class App extends Component {
               <Route path="/admin" component={AdminPage} />
               <Route path="" component={NotFoundPage} />
             </Switch>
-          </Sidebar.Pusher>
+          </SidebarPusher>
         </PushableWrapper>
       </AppWrapper>
     );
