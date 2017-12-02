@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Menu, Image, Responsive, Icon, Button, Segment, Sidebar, Header } from 'semantic-ui-react';
+import { Menu, Image, Responsive, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
