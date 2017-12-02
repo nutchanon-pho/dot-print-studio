@@ -32,7 +32,8 @@ class UploadImageButton extends Component {
   }
 
   render() {
-    return <input type="file" onChange={this.onFileUpload} />;
+    const { onFileUpload, ...other } = this.props;
+    return <input {...other} type="file" onChange={this.onFileUpload} />;
   }
 }
 

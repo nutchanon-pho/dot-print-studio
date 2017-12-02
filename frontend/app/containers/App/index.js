@@ -93,6 +93,7 @@ export default class App extends Component {
             <Switch>
               <Route exact path="/" component={HomePage} />
               <Route exact path="/shop" component={ShopPage} />
+              <Route path="/shop/:step" component={ShopPage} />
               <Route exact path="/gallery" component={GalleryPage} />
               <Route path="/profile" component={ProfilePage} />
               <Route path="/admin" component={AdminPage} />

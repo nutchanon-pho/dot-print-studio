@@ -11,6 +11,7 @@ const CropperComponent = (props) => (
     crop={props.onCrop}
     zoom={props.onCrop}
     ref={props.inputRef}
+    rotatable
   />
 );
 
