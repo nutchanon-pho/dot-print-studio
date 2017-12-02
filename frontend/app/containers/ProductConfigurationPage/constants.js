@@ -30,8 +30,8 @@ export const posterPaperTypeOptions = [
 ];
 
 export const paperSizeInfoMap = {
-  A1: { aspectRatio: { portrait: 594.0 / 891.0, landscape: 891.0 / 594.0 } },
-  A2: { aspectRatio: { portrait: 420.0 / 594.0, landscape: 594.0 / 420.0 } },
-  A3: { aspectRatio: { portrait: 297.0 / 420.0, landscape: 420.0 / 297.0 } },
-  A4: { aspectRatio: { portrait: 210.0 / 297.0, landscape: 297.0 / 210.0 } },
+  A1: { aspectRatio: { portrait: 594.0 / 891.0, landscape: 891.0 / 594.0 }, width: { portrait: 594.0, landscape: 891.0 } },
+  A2: { aspectRatio: { portrait: 420.0 / 594.0, landscape: 594.0 / 420.0 }, width: { portrait: 420.0, landscape: 594.0 } },
+  A3: { aspectRatio: { portrait: 297.0 / 420.0, landscape: 420.0 / 297.0 }, width: { portrait: 297.0, landscape: 420.0 } },
+  A4: { aspectRatio: { portrait: 210.0 / 297.0, landscape: 297.0 / 210.0 }, width: { portrait: 210.0, landscape: 297.0 } },
 };

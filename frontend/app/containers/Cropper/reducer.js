@@ -5,12 +5,12 @@ import {
   INITIALIZE_CROPPER,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({ isCropperInitialized: false });
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case INITIALIZE_CROPPER:
-      return state.set('cropper', action.cropper);
+      return state.set('cropper', action.cropper).set('isCropperInitialized', true);
     case CROP_IMAGE:
       const cropper = state.get('cropper');
       console.log(cropper);

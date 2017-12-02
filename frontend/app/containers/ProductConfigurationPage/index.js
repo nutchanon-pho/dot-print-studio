@@ -53,8 +53,11 @@ export class ProductConfigurationPage extends React.Component { // eslint-disabl
           </Segment>
           <Segment>
             <Header as="h1">Preview</Header>
-            <div style={{ border: '2px', borderColor: 'black' }}>
-              <Image centered src={this.props.croppedImage} />
+            <Header as="h3">Layout Preview</Header>
+            <Image size="small" centered src={this.props.croppedImage} />
+            <Header as="h3">Resolution Preview (Actual Size)</Header>
+            <div style={{ overflow: 'scroll', height: '300px' }}>
+              <img alt="Resolution Preview" style={{ width: `${paperSizeInfoMap[size].width[layout]}mm` }} src={this.props.croppedImage} />
             </div>
           </Segment>
         </Grid.Column>

@@ -13,7 +13,11 @@ const makeSelectUploadedImage = () => createSelector(
 );
 
 const makeSelectCropper = () => createSelector(selectCropper, (state) => (state.get('cropper')));
-const makeSelectCroppedImage = () => createSelector(selectCropper, (state) => (state.get('croppedImage')));
+const makeSelectCroppedImage = () => createSelector(selectCropper, (state) => {
+  if (state) {
+    return state.get('croppedImage');
+  } return null;
+});
 
 export {
     makeSelectUploadedImage,
