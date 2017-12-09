@@ -70,9 +70,15 @@ class ShopPage extends React.PureComponent { // eslint-disable-line react/prefer
               </Step.Content>
             </Step>
             <Step active={step === '2'}>
-              <Icon name="tags" />
+              <Icon name="setting" />
               <Step.Content>
                 <Step.Description>Configure</Step.Description>
+              </Step.Content>
+            </Step>
+            <Step active={step === '3'}>
+              <Icon name="tags" />
+              <Step.Content>
+                <Step.Description>Summary</Step.Description>
               </Step.Content>
             </Step>
           </Step.Group>
