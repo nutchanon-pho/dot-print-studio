@@ -14,6 +14,7 @@ import { discardUploadedImage } from 'containers/UploadImageButton/action';
 import { compose } from 'redux';
 import Cropper from 'containers/Cropper';
 import ProductConfigurationPage from 'containers/ProductConfigurationPage/Loadable';
+import SummaryShopPage from 'containers/SummaryShopPage';
 
 import messages from './messages';
 
@@ -87,6 +88,7 @@ class ShopPage extends React.PureComponent { // eslint-disable-line react/prefer
             <Route exact path="/shop" render={() => (<Redirect to="/shop/1" />)} />
             <Route exact path="/shop/1" component={() => (<Step1 {...this.props} />)} />
             <Route exact path="/shop/2" component={ProductConfigurationPage} />
+            <Route exact path="/shop/3" component={SummaryShopPage} />
           </Switch>
         </Segment>
         <Footer />

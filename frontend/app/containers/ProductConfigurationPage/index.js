@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -47,7 +48,7 @@ export class ProductConfigurationPage extends React.Component { // eslint-disabl
               {productType === 'Poster' && <Form.Select value={paperType} name="paperType" label="Paper Type" options={posterPaperTypeOptions} placeholder="Paper Type" onChange={this.handleChange} />}
               <div style={{ textAlign: 'right' }}>
                 <Button onClick={this.props.cropImage} color="blue">Preview</Button>
-                <Button onClick={this.onNext} color="green">Next</Button>
+                <Link to="/shop/3"><Button onClick={this.onNext} color="green">Next</Button></Link>
               </div>
             </Form>
           </Segment>
