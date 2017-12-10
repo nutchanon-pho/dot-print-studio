@@ -72,26 +72,26 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         </Container>
         <Container style={{ marginTop: '20px' }}>
           <Step.Group fluid>
-            <Step active>
+            <Step>
               <Icon name="tags" />
               <Step.Content>
                 <Step.Description><FormattedMessage {...messages.stepConfigureProduct} />/<br />
                   <FormattedMessage {...messages.stepCheckPriceOnline} /></Step.Description>
               </Step.Content>
             </Step>
-            <Step active>
+            <Step>
               <Icon name="upload" />
               <Step.Content>
                 <Step.Description><FormattedMessage {...messages.stepUploadYourFile} /></Step.Description>
               </Step.Content>
             </Step>
-            <Step active>
+            <Step>
               <Icon name="payment" />
               <Step.Content>
                 <Step.Description><FormattedMessage {...messages.stepMakeAPayment} /></Step.Description>
               </Step.Content>
             </Step>
-            <Step active>
+            <Step>
               <Icon name="truck" />
               <Step.Content>
                 <Step.Description><FormattedMessage {...messages.stepReceiveTheProduct} /></Step.Description>
