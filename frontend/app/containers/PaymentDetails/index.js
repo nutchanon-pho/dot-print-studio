@@ -22,7 +22,7 @@ export class PaymentDetails extends React.Component { // eslint-disable-line rea
     this.state = {
       number: '4242424242424242',
       name: 'Terry Clapp',
-      expiry: '0919',
+      expiry: '09/19',
       cvc: '444',
       focused: 'name',
       isChangeButtonShow: true,
@@ -55,7 +55,7 @@ export class PaymentDetails extends React.Component { // eslint-disable-line rea
       });
     } else if (target.name === 'expiry') {
       this.setState({
-        [target.name]: target.value.replace(/ |\//g, ''),
+        [target.name]: target.value,
       });
     } else {
       this.setState({
@@ -72,7 +72,7 @@ export class PaymentDetails extends React.Component { // eslint-disable-line rea
         <Cards
           number={number}
           name={name}
-          expiry={expiry}
+          expiry={expiry.replace(/ |\//g, '')}
           cvc={cvc}
           focused={focused}
         />
@@ -84,13 +84,16 @@ export class PaymentDetails extends React.Component { // eslint-disable-line rea
         <br />
         <Form style={formDisplay}>
           <Form.Field>
-            <Form.Input name="number" value={number} label="CARD NUMBER" type="text" onKeyUp={this.handleInputChange} onFocus={this.handleInputFocus} />
+            <Form.Input name="number" value={this.state.number} label="CARD NUMBER" type="text" onChange={this.handleInputChange} onFocus={this.handleInputFocus} />
           </Form.Field>
           <Form.Field>
-            <Form.Input name="name" value={name} label="FULL NAME" type="text" onKeyUp={this.handleInputChange} onFocus={this.handleInputFocus} />
+            <Form.Input name="name" value={name} label="FULL NAME" type="text" onChange={this.handleInputChange} onFocus={this.handleInputFocus} />
           </Form.Field>
           <Form.Field>
-            <Form.Input name="expiry" value={expiry} label="EXPIRY" type="text" onKeyUp={this.handleInputChange} onFocus={this.handleInputFocus} />
+            <Form.Input name="expiry" value={expiry} label="EXPIRY" type="text" onChange={this.handleInputChange} onFocus={this.handleInputFocus} />
+          </Form.Field>
+          <Form.Field>
+            <Form.Input name="cvc" value={cvc} label="CVC" type="text" onChange={this.handleInputChange} onFocus={this.handleInputFocus} />
           </Form.Field>
           <Segment basic textAlign="right">
             <Button type="submit" primary>

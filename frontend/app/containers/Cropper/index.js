@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import CropperComponent from './CropperComponent';
 import CropperPreview from 'components/CropperPreview';
-import sample from './sample.jpg';
 import { createStructuredSelector } from 'reselect';
-import { makeSelectUploadedImage } from './selectors';
+import { makeSelectUploadedImage, makeSelectCropper } from './selectors';
+import { initializeCropper } from './actions';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import _ from 'lodash';
+import { Button, Segment, Icon, Message } from 'semantic-ui-react';
+import injectReducer from 'utils/injectReducer';
+import reducer from './reducer';
 
 class Cropper extends Component {
   constructor(props) {
@@ -14,31 +18,47 @@ class Cropper extends Component {
     this.state = {
       previewedImage: '',
     };
-
-    this.onCrop = this.onCrop.bind(this);
   }
 
-  onCrop() {
-    // const vm = this;
-    // function run() {
-    //   vm.setState({
-    //     previewedImage: vm.cropper.getCroppedCanvas().toDataURL(),
-    //   });
-    // }
+  onRef = (el) => {
+    const cropper = el != null ? el.cropper : null;
+    this.props.initializeCropper(cropper);
+  }
 
-    // const realFunction =
-    //   _.debounce(run, 5000);
+  rotateLeft = () => {
+    this.props.cropper.rotate(-90);
+  }
 
-    // realFunction();
+  rotateRight = () => {
+    this.props.cropper.rotate(90);
+  }
+
+  reset = () => {
+    this.props.cropper.reset();
   }
 
   render() {
     return (
       <div>
+        <Segment basic textAlign="center">
+          <Button.Group>
+            <Button primary onClick={this.rotateLeft}><Icon name="undo" /></Button>
+            <Button.Or />
+            <Button primary onClick={this.rotateRight}><Icon name="repeat" /></Button>
+          </Button.Group>
+          &nbsp;
+          <Button color="red" onClick={this.reset}>Reset</Button>
+          <Message>
+            <Message.Header>
+              Tips
+            </Message.Header>
+            <p>Double click on the Cropper to toggle beween "Drag Mode" and "Crop Mode"</p>
+          </Message>
+        </Segment>
         <CropperComponent
           imageSrc={this.props.uploadedImage}
-          aspectRatio={297 / 210}
-          inputRef={(el) => (this.cropper = el)}
+          aspectRatio={this.props.aspectRatio}
+          inputRef={this.onRef}
           onCrop={this.onCrop}
         />
         {/* <CropperPreview previewedImage={this.state.previewedImage} /> */}
@@ -48,11 +68,15 @@ class Cropper extends Component {
 }
 
 const mapStateToProps = createStructuredSelector({
+  cropper: makeSelectCropper(),
   uploadedImage: makeSelectUploadedImage(),
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   onFileUpload: bindActionCreators(uploadImage, dispatch),
-// });
+const withReducer = injectReducer({ key: 'cropper', reducer });
 
-export default connect(mapStateToProps)(Cropper);
+const withConnect = connect(mapStateToProps, { initializeCropper });
+
+export default compose(
+  withReducer,
+  withConnect,
+)(Cropper);

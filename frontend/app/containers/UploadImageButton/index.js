@@ -32,7 +32,8 @@ class UploadImageButton extends Component {
   }
 
   render() {
-    return <input type="file" onChange={this.onFileUpload} />;
+    const { onFileUpload, ...other } = this.props;
+    return <input {...other} type="file" onChange={this.onFileUpload} />;
   }
 }
 
@@ -46,7 +47,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const withConnect = connect(null, mapDispatchToProps);
 
-const withReducer = injectReducer({ key: 'uploadImage', reducer });
+const withReducer = injectReducer({ key: 'cropper', reducer });
 
 export default compose(
   withReducer,
