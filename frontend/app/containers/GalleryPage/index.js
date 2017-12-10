@@ -76,7 +76,7 @@ export default class GalleryPage extends React.PureComponent { // eslint-disable
               <p>{lorem}</p>
               <Grid stackable columns={3}>
                 {cardList.map((each) => (
-                  <Grid.Column textAlign="center" ><GalleryDimmer src={each.image} /></Grid.Column>
+                  <Grid.Column key={each.header} textAlign="center" ><GalleryDimmer src={each.image} /></Grid.Column>
                 ))}
               </Grid>
             </Grid.Column>

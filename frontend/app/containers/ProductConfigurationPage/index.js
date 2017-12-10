@@ -23,7 +23,7 @@ import { makeSelectCroppedImage } from 'containers/Cropper/selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { updateForm } from './actions';
+import { updateForm, useImage } from './actions';
 import { cropImage } from 'containers/Cropper/actions';
 import { productTypeOptions, layoutOptions, sizeOptions, posterPaperTypeOptions, paperSizeInfoMap } from './constants';
 
@@ -33,6 +33,7 @@ export class ProductConfigurationPage extends React.Component { // eslint-disabl
   onNext = () => {
     this.props.updateForm(this.state);
     this.props.cropImage();
+    this.props.useImage(this.props.croppedImage);
     this.props.push('/shop/3');
   };
 
@@ -83,7 +84,7 @@ const mapStateToProps = createStructuredSelector({
   croppedImage: makeSelectCroppedImage(),
 });
 
-const withConnect = connect(mapStateToProps, { updateForm, cropImage, push });
+const withConnect = connect(mapStateToProps, { updateForm, cropImage, push, useImage });
 
 const withReducer = injectReducer({ key: 'productConfiguration', reducer });
 const withSaga = injectSaga({ key: 'productConfiguration', saga });

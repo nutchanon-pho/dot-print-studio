@@ -8,6 +8,7 @@ import { fromJS } from 'immutable';
 import {
   DEFAULT_ACTION,
   UPDATE_FORM,
+  USE_IMAGE,
 } from './constants';
 
 const initialState = fromJS({
@@ -19,6 +20,8 @@ function productConfigurationPageReducer(state = initialState, action) {
       return state;
     case UPDATE_FORM:
       return state.set('form', action.form);
+    case USE_IMAGE:
+      return state.set('usedImage', action.image);
     default:
       return state;
   }

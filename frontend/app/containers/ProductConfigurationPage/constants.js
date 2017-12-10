@@ -6,6 +6,7 @@
 
 export const DEFAULT_ACTION = 'app/ProductConfigurationPage/DEFAULT_ACTION';
 export const UPDATE_FORM = 'app/ProductConfigurationPage/UPDATE_FORM';
+export const USE_IMAGE = 'app/ProductConfigurationPage/USE_IMAGE';
 
 export const productTypeOptions = [
     { key: 'poster', text: 'Poster', value: 'Poster' },
