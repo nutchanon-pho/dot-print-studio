@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the productConfigurationPage state domain
  */
-const selectProductConfigurationPageDomain = (state) => state.get('productConfiguration');
+const selectProductConfigurationPageDomain = (state) => state.get('productConfig');
 
 /**
  * Other specific selectors

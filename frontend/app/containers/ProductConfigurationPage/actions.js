@@ -8,6 +8,7 @@ import {
   DEFAULT_ACTION,
   UPDATE_FORM,
   USE_IMAGE,
+  DISCARD_CONFIG,
 } from './constants';
 
 export function defaultAction() {
@@ -27,5 +28,11 @@ export function useImage(image) {
   return {
     type: USE_IMAGE,
     image,
+  };
+}
+
+export function discardConfig() {
+  return {
+    type: DISCARD_CONFIG,
   };
 }

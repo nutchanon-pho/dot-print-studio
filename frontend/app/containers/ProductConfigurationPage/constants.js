@@ -7,6 +7,12 @@
 export const DEFAULT_ACTION = 'app/ProductConfigurationPage/DEFAULT_ACTION';
 export const UPDATE_FORM = 'app/ProductConfigurationPage/UPDATE_FORM';
 export const USE_IMAGE = 'app/ProductConfigurationPage/USE_IMAGE';
+export const DISCARD_CONFIG = 'app/ProductConfigurationPage/DISCARD_CONFIG';
+export const UPLOAD_IMAGE = 'UPLOAD_IMAGE';
+export const DISCARD_UPLOADED_IMAGE = 'DISCARD_UPLOADED_IMAGE';
+export const CROP_IMAGE = 'app/containers/Cropper/CROP_IMAGE';
+export const INITIALIZE_CROPPER = 'app/containers/Cropper/INITIALIZE_CROPPER';
+
 
 export const productTypeOptions = [
     { key: 'poster', text: 'Poster', value: 'Poster' },

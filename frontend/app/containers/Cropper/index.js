@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import CropperComponent from './CropperComponent';
-import CropperPreview from 'components/CropperPreview';
+// import CropperPreview from 'components/CropperPreview';
 import { createStructuredSelector } from 'reselect';
-import { makeSelectUploadedImage, makeSelectCropper } from './selectors';
-import { initializeCropper } from './actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import _ from 'lodash';
+import { makeSelectSelectedImage } from 'containers/GalleryPage/selectors';
 import { Button, Segment, Icon, Message } from 'semantic-ui-react';
 import injectReducer from 'utils/injectReducer';
-import reducer from './reducer';
+import reducer from 'containers/ProductConfigurationPage/reducer';
+import { makeSelectUploadedImage, makeSelectCropper } from './selectors';
+import { initializeCropper } from './actions';
+import CropperComponent from './CropperComponent';
 
 class Cropper extends Component {
   constructor(props) {
@@ -38,6 +39,12 @@ class Cropper extends Component {
   }
 
   render() {
+    let image;
+    if (this.props.uploadedImage) {
+      image = this.props.uploadedImage;
+    } else if (this.props.selectedImageFromGallery && this.props.selectedImageFromGallery.image) {
+      image = this.props.selectedImageFromGallery.image;
+    }
     return (
       <div>
         <Segment basic textAlign="center">
@@ -56,7 +63,7 @@ class Cropper extends Component {
           </Message>
         </Segment>
         <CropperComponent
-          imageSrc={this.props.uploadedImage}
+          imageSrc={image}
           aspectRatio={this.props.aspectRatio}
           inputRef={this.onRef}
           onCrop={this.onCrop}
@@ -70,9 +77,10 @@ class Cropper extends Component {
 const mapStateToProps = createStructuredSelector({
   cropper: makeSelectCropper(),
   uploadedImage: makeSelectUploadedImage(),
+  selectedImageFromGallery: makeSelectSelectedImage(),
 });
 
-const withReducer = injectReducer({ key: 'cropper', reducer });
+const withReducer = injectReducer({ key: 'productConfig', reducer });
 
 const withConnect = connect(mapStateToProps, { initializeCropper });
 

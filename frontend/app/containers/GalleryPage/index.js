@@ -1,9 +1,15 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { connect } from 'react-redux';
 import DotPrintMenu from 'containers/Menu';
 import { Menu, Grid, Segment, Header } from 'semantic-ui-react';
 import Footer from 'components/Footer';
 import GalleryDimmer from 'components/GalleryDimmer';
+import { push } from 'react-router-redux';
+import { compose } from 'redux';
+import injectReducer from 'utils/injectReducer';
+import reducer from './reducer';
+import { selectImage } from './actions';
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
 
@@ -36,8 +42,10 @@ const cardList = [
 
 const lorem = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
 
-export default class GalleryPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class GalleryPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
   handleItemClick = (name) => this.setState({ activeItem: name })
+
   render() {
     const { activeItem } = this.state || {};
     return (
@@ -76,7 +84,13 @@ export default class GalleryPage extends React.PureComponent { // eslint-disable
               <p>{lorem}</p>
               <Grid stackable columns={3}>
                 {cardList.map((each) => (
-                  <Grid.Column key={each.header} textAlign="center" ><GalleryDimmer src={each.image} /></Grid.Column>
+                  <Grid.Column
+                    onClick={() => {
+                      this.props.selectImage(each);
+                      this.props.push('/shop/2');
+                    }
+                  } key={each.header} textAlign="center"
+                  ><GalleryDimmer src={each.image} /></Grid.Column>
                 ))}
               </Grid>
             </Grid.Column>
@@ -91,3 +105,12 @@ export default class GalleryPage extends React.PureComponent { // eslint-disable
 GalleryPage.propTypes = {
 };
 
+
+const withConnect = connect(null, { push, selectImage });
+
+const withReducer = injectReducer({ key: 'galleryPage', reducer });
+
+export default compose(
+  withReducer,
+  withConnect,
+)(GalleryPage);

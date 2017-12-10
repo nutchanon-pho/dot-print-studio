@@ -5,7 +5,7 @@ import { uploadImage } from './action';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import injectReducer from 'utils/injectReducer';
-import reducer from './reducer';
+import reducer from 'containers/ProductConfigurationPage/reducer';
 
 class UploadImageButton extends Component {
 
@@ -47,7 +47,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const withConnect = connect(null, mapDispatchToProps);
 
-const withReducer = injectReducer({ key: 'cropper', reducer });
+const withReducer = injectReducer({ key: 'productConfig', reducer });
 
 export default compose(
   withReducer,
