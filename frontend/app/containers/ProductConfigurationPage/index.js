@@ -7,12 +7,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Grid, Icon, Segment, Step, Image, Header, Button, Form } from 'semantic-ui-react';
 import Cropper from 'containers/Cropper';
+import { push } from 'react-router-redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -31,12 +33,14 @@ export class ProductConfigurationPage extends React.Component { // eslint-disabl
   onNext = () => {
     this.props.updateForm(this.state);
     this.props.cropImage();
+    this.props.push('/shop/3');
   };
 
   handleChange = (e, { name, value }) => { this.setState({ [name]: value }); }
 
   render() {
     const { productType, size, paperType, layout } = this.state;
+    const validToGoToNextPage = (productType === 'Poster' && size && paperType && layout) || (productType === 'Canvas' && size && layout);
     return (
       <Grid stackable divided columns={2}>
         <Grid.Column>
@@ -46,9 +50,10 @@ export class ProductConfigurationPage extends React.Component { // eslint-disabl
               <Form.Select value={layout} name="layout" label="Layout" options={layoutOptions} placeholder="Layout" onChange={this.handleChange} />
               <Form.Select value={size} name="size" label="Size" options={sizeOptions} placeholder="Size" onChange={this.handleChange} />
               {productType === 'Poster' && <Form.Select value={paperType} name="paperType" label="Paper Type" options={posterPaperTypeOptions} placeholder="Paper Type" onChange={this.handleChange} />}
+              <Segment textAlign="right" basic><strong>Price:</strong> 100 THB</Segment>
               <div style={{ textAlign: 'right' }}>
                 <Button onClick={this.props.cropImage} color="blue">Preview</Button>
-                <Link to="/shop/3"><Button onClick={this.onNext} color="green">Next</Button></Link>
+                <Button disabled={!validToGoToNextPage} onClick={this.onNext} color="green">Next</Button>
               </div>
             </Form>
           </Segment>
@@ -78,7 +83,7 @@ const mapStateToProps = createStructuredSelector({
   croppedImage: makeSelectCroppedImage(),
 });
 
-const withConnect = connect(mapStateToProps, { updateForm, cropImage });
+const withConnect = connect(mapStateToProps, { updateForm, cropImage, push });
 
 const withReducer = injectReducer({ key: 'productConfiguration', reducer });
 const withSaga = injectSaga({ key: 'productConfiguration', saga });

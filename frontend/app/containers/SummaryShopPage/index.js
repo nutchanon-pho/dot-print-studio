@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Image, Grid, Segment, Header } from 'semantic-ui-react';
+import { Image, Grid, Segment, Header, Button } from 'semantic-ui-react';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -44,14 +44,18 @@ export class SummaryShopPage extends React.Component { // eslint-disable-line re
             <Segment>
               <Grid>
                 <Grid.Column width="6"><Image centered size="small" src={this.props.croppedImage} /></Grid.Column>
-                <Grid.Column width="10">
+                <Grid.Column width="10" style={{ fontSize: 'larger' }}>
                   <div><strong>Product Type:</strong> {productType}</div>
                   <div><strong>Layout:</strong> {layout}</div>
                   <div><strong>Size:</strong> {size}</div>
                   {paperType && <div><strong>Paper Type:</strong> {paperType}</div>}
+                  <div><strong>Price:</strong> 100 THB</div>
                 </Grid.Column>
               </Grid>
             </Segment>
+          </Grid.Column>
+          <Grid.Column textAlign="right" width="16">
+            <Button color="green">Add to Cart</Button>
           </Grid.Column>
         </Grid>
       </div>
