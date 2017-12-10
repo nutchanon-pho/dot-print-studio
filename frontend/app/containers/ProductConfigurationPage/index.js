@@ -33,14 +33,9 @@ import { productTypeOptions, layoutOptions, sizeOptions, posterPaperTypeOptions,
 export class ProductConfigurationPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   state = { size: 'A1', layout: 'portrait' };
 
-  componentWillUnmount() {
-    this.props.discardConfig();
-  }
-
   onNext = () => {
     this.props.updateForm(this.state);
     this.props.cropImage();
-    this.props.useImage(this.props.croppedImage);
     this.props.push('/shop/3');
   };
 

@@ -33,7 +33,8 @@ function productConfigurationPageReducer(state = initialState, action) {
       return state.set('cropper', action.cropper).set('isCropperInitialized', true);
     case CROP_IMAGE:
       const cropper = state.get('cropper');
-      return state.set('croppedImage', cropper.getCroppedCanvas().toDataURL());
+      const croppedImage = cropper.getCroppedCanvas().toDataURL();
+      return state.set('croppedImage', croppedImage).set('usedImage', croppedImage);
     case UPLOAD_IMAGE:
       return state.set('uploadedImage', action.payload);
     case DISCARD_UPLOADED_IMAGE:

@@ -9,11 +9,14 @@ import { Link } from 'react-router-dom';
 import UploadImageButton from 'containers/UploadImageButton';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
+import injectReducer from 'utils/injectReducer';
 import { makeSelectUploadedImage } from 'containers/Cropper/selectors';
 import { discardUploadedImage } from 'containers/UploadImageButton/action';
 import { compose } from 'redux';
 import Cropper from 'containers/Cropper';
 import ProductConfigurationPage from 'containers/ProductConfigurationPage/Loadable';
+import reducer from 'containers/ProductConfigurationPage/reducer';
+import { discardConfig } from 'containers/ProductConfigurationPage/actions';
 import SummaryShopPage from 'containers/SummaryShopPage';
 
 import messages from './messages';
@@ -47,10 +50,12 @@ const Step1 = ({ uploadedImage, discardUploadedImage }) => (
 class ShopPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   state = { size: 'A1', layout: 'portrait' };
 
-  handleChange = (e, { name, value }) => { this.setState({ [name]: value }); }
-
   componentWillMount() {
     this.props.discardUploadedImage();
+  }
+
+  componentWillUnmount() {
+    this.props.discardConfig();
   }
 
   render() {
@@ -104,9 +109,11 @@ const mapStateToProps = createStructuredSelector({
   uploadedImage: makeSelectUploadedImage(),
 });
 
-const withConnect = connect(mapStateToProps, { discardUploadedImage });
+const withReducer = injectReducer({ key: 'productConfig', reducer });
+const withConnect = connect(mapStateToProps, { discardUploadedImage, discardConfig });
 
 // export default withConnect(ShopPage);
 export default compose(
+  withReducer,
   withConnect,
 )(ShopPage);
