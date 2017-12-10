@@ -13,8 +13,10 @@ export default function (state = initialState, action) {
       return state.set('cropper', action.cropper).set('isCropperInitialized', true);
     case CROP_IMAGE:
       const cropper = state.get('cropper');
-      console.log(cropper);
       return state.set('croppedImage', cropper.getCroppedCanvas().toDataURL());
+    case 'app/ProductConfigurationPage/DISCARD_CONFIG':
+      console.log(action);
+      return state.set('uploadedImage', null).set('selectedImage', null);
     default:
       return state;
   }

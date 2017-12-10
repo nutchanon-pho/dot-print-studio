@@ -28,6 +28,7 @@ export class SummaryShopPage extends React.Component { // eslint-disable-line re
     let layout;
     let size;
     let paperType;
+    let usedImage;
 
     if (this.props.productConfiguration) {
       const productConfiguration = this.props.productConfiguration;
@@ -35,6 +36,7 @@ export class SummaryShopPage extends React.Component { // eslint-disable-line re
       layout = _.get(productConfiguration, 'form.layout');
       size = _.get(productConfiguration, 'form.size');
       paperType = _.get(productConfiguration, 'form.paperType');
+      usedImage = _.get(productConfiguration, 'usedImage');
     }
     return (
       <div>
@@ -43,7 +45,7 @@ export class SummaryShopPage extends React.Component { // eslint-disable-line re
           <Grid.Column width="16">
             <Segment>
               <Grid>
-                <Grid.Column width="6"><Image centered size="small" src={this.props.croppedImage} /></Grid.Column>
+                <Grid.Column width="6"><Image centered size="small" src={usedImage} /></Grid.Column>
                 <Grid.Column width="10" style={{ fontSize: 'larger' }}>
                   <div><strong>Product Type:</strong> {productType}</div>
                   <div><strong>Layout:</strong> {layout}</div>

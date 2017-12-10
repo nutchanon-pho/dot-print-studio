@@ -4,6 +4,7 @@
  *
  */
 
+import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -18,13 +19,15 @@ import { push } from 'react-router-redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectProductConfigurationPage from './selectors';
 import { makeSelectCroppedImage } from 'containers/Cropper/selectors';
+import { cropImage } from 'containers/Cropper/actions';
+import { makeSelectSelectedImage } from 'containers/GalleryPage/selectors';
+
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { updateForm } from './actions';
-import { cropImage } from 'containers/Cropper/actions';
+import makeSelectProductConfigurationPage from './selectors';
+import { updateForm, useImage, discardConfig } from './actions';
 import { productTypeOptions, layoutOptions, sizeOptions, posterPaperTypeOptions, paperSizeInfoMap } from './constants';
 
 export class ProductConfigurationPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -81,11 +84,12 @@ ProductConfigurationPage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   productconfigurationpage: makeSelectProductConfigurationPage(),
   croppedImage: makeSelectCroppedImage(),
+  selectedImage: makeSelectSelectedImage(),
 });
 
-const withConnect = connect(mapStateToProps, { updateForm, cropImage, push });
+const withConnect = connect(mapStateToProps, { updateForm, cropImage, push, useImage, discardConfig });
 
-const withReducer = injectReducer({ key: 'productConfiguration', reducer });
+const withReducer = injectReducer({ key: 'productConfig', reducer });
 const withSaga = injectSaga({ key: 'productConfiguration', saga });
 
 export default compose(
