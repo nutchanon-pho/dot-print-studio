@@ -1,16 +1,16 @@
-import { UPLOAD_IMAGE } from './constants';
 import { fromJS } from 'immutable';
+import { UPLOAD_IMAGE, DISCARD_UPLOADED_IMAGE } from './constants';
 
 const initialState = fromJS({
   uploadedImage: null,
 });
 
 function uploadImageReducer(state = initialState, action) {
-  console.log('uploadImageReducer');
-  console.log('uploadImageReducer state', state);
   switch (action.type) {
     case UPLOAD_IMAGE:
       return state.set('uploadedImage', action.payload);
+    case DISCARD_UPLOADED_IMAGE:
+      return state.set('uploadedImage', null);
     default:
       return state;
   }

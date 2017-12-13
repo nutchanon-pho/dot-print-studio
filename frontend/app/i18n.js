@@ -17,8 +17,8 @@ addLocaleData(enLocaleData);
 addLocaleData(thLocaleData);
 
 export const appLocales = [
-  'ไทย',
-  'English',
+  'th',
+  'en',
 ];
 
 export const formatTranslationMessages = (locale, messages) => {

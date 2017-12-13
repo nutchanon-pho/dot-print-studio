@@ -27,13 +27,14 @@ const userSchema = new Schema({
         address: {
             address1: String,
             address2: String,
-            postal_code: String,
+            postalCode: String,
         },
     },
     billing: {
-        name: String,
-        type: String,
-        number: String,
+        nameOnCard: String,
+        brand: String,
+        last4Digits: String,
+        customerToken: String,
     },
     orders: {
         history: [{

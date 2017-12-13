@@ -1,2 +1,9 @@
-1. npm install
-2. npm start
+Run
+`
+docker-compose up
+`
+
+Deploy to Heroku
+`
+git push heroku `git subtree split --prefix frontend develop`:master --force
+`
