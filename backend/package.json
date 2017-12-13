@@ -4,7 +4,7 @@
   "description": "dot print backend",
   "main": "app.js",
   "scripts": {
-    "start": "npm run build && babel-watch app.js",
+    "start": "npm run build && NODE_ENV=development babel-watch app.js",
     "test": "npm install && npm run unit-tests",
     "build": " npm install && npm run lint && rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "docker": "docker build -t dot-print-backend .",
@@ -40,6 +40,7 @@
     "nconf": "^0.8.5",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
+    "passport-facebook-token": "^3.3.0",
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
     "promise": "^8.0.1",

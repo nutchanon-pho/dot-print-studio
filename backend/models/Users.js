@@ -5,7 +5,7 @@ const { mongoose } = mongoService;
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-    email: { type: String, required: true },
+    username: { type: String, required: true },
     isActive: { type: Boolean, required: true },
     recCreatedWhen: { type: Date, default: Date.now },
     role: { type: String, required: true },
@@ -38,12 +38,12 @@ const userSchema = new Schema({
     },
     orders: {
         history: [{
-            order_id: Number,
-            order_created_when: String,
+            orderId: Number,
+            orderCreatedWhen: { type: Date, default: Date.now },
         }],
         tracking: [{
-            order_id: { type: Number },
-            order_created_when: { type: Number },
+            orderId: { type: Number },
+            orderCreatedWhen: { type: Date, default: Date.now },
         }],
     },
     reset_password: {

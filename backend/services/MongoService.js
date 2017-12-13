@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import Promise from 'promise';
-import * as config from '../config';
+import nconf from '../config';
 
 const options = {
     useMongoClient: true,
@@ -11,8 +11,10 @@ const options = {
     bufferMaxEntries: 0,
 };
 
+const connectionString = `mongodb://${nconf.get('mongo:host')}:${nconf.get('mongo:port')}`;
+
 mongoose.Promise = Promise;
-mongoose.connect(config.getDbConnectionString(), options).then(
+mongoose.connect(connectionString, options).then(
     () => console.log('success'),
     err => console.log(`error on connection to mongo ${err}`),
 ).catch(err => console.log(`error on connection to mongo ${err}`));

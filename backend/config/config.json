@@ -1,4 +1,11 @@
 {
-    "host": "localhost",
-    "port": "27017"
+    "port": 3000,
+    "facebook": {
+        "client-id": "133894837284193",
+        "client-secret": "29e313fd23059f2688feff103d0b4d46"
+    },
+    "mongo": {
+        "host": "localhost",
+        "port": "27017"
+    }
 }

@@ -20,7 +20,7 @@ services:
      - /home/app/dot-print-frontend/node_modules
     command: bash -c "cd /home/app/dot-print-frontend && yarn install && npm start"
 
-  dot-print-backend:
-    image: dot-print-backend:latest
-    ports:
-      - "3000:3000"
+  # dot-print-backend:
+  #   image: dot-print-backend:latest
+  #   ports:
+  #     - "3000:3000"

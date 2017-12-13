@@ -1,13 +1,13 @@
 'use strict';
 
-var _config = require('./config.json');
+var _nconf = require('nconf');
 
-var configValues = _interopRequireWildcard(_config);
+var _nconf2 = _interopRequireDefault(_nconf);
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-module.exports = {
-    getDbConnectionString: function getDbConnectionString() {
-        return 'mongodb://' + configValues.host + ':' + configValues.port;
-    }
-};
+if (process.env.NODE_ENV === 'development') {
+    _nconf2.default.file({ file: './config/config.json' });
+}
+
+module.exports = _nconf2.default;
