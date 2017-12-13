@@ -1,0 +1,128 @@
+{
+    "users": {
+        "_id": "ObjectId",
+        "username": "email",
+        "isActive": "Boolean",
+        "recCreatedWhen": "Date",
+        "role": "String",
+        "accounts": {
+            "local": {
+                "password": "String"
+            },
+            "facebook": {
+                "uuid": "String",
+                "token": "String"
+            },
+            "google": {
+                "uuid": "String",
+                "token": "String"
+            }
+        },
+        "details": {
+            "firstname": "String",
+            "lastname": "String",
+            "phone": "String",
+            "address": {
+                "address1": "String",
+                "address2": "String",
+                "postal_code": "String"
+            }
+        },
+        "billing": {
+            "name": "String",
+            "type": "String",
+            "number": "String"
+        },
+        "orders": {
+            "history": [{
+                "orderId": "Number",
+                "orderCreatedWhen": "Date"
+            }],
+            "tracking": [{
+                "orderId": "Number",
+                "orderCreatedWhen": "Date"
+            }]
+        },
+        "reset_password": {
+            "token": "String",
+            "expires": "Date"
+        }
+    },
+
+    "tags": {
+        // Tags
+        // Assumption: All collections and products must have a tag
+        // Advantages: faster query (select product where product ids in tag) than (select product where tags in tag_name)
+        "_id": "ObjectId",
+        "name": "String",
+        "product_ids": [
+            "ObjectId of product1",
+            "ObjectId of product2"
+        ],
+        "collection_ids": [
+            "ObjectId of collection1",
+            "ObjectId of collection2"
+        ],
+        "date_created": "Date",
+        "created_by": "String",
+        "date_modified": "Date",
+        "modified_by": "String"
+    },
+
+    "collections": {
+        "_id": "ObjectId",
+        "name": "String",
+        "image_url": "URL String", // real image is stored in cloud storage
+        "tag_ids": [
+            // In case want to add more tags in the future
+            "ObjectId of tag1"
+        ],
+        "product_ids": [
+            "ObjectId of product1",
+            "ObjectId of product2"
+        ],
+        "date_created": "Date",
+        "created_by": "String",
+        "date_modified": "Date",
+        "modified_by": "String"
+    },
+
+    "products": {
+        "_id": "ObjectId",
+        "name": "String",
+        "image_url": "URL String", // Real image is stored in cloud storage
+        "price": "Double",
+        "type": [
+            "Canvas", 
+            "Poster"
+        ],
+        "option_group_id": "ObjectId",
+        "date_created": "Date",
+        "created_by": "String",
+        "date_modified": "Date",
+        "modified_by": "String"
+    },
+
+    "optionGroup": {
+        "_id": "ObjectId",
+        "name": "String",
+        "type": "String",
+        "is_default": "Boolean",
+        "start_date": "Date",
+        "end_date": "Date",
+        "options": [{
+            "size": "String",
+            "paper": "String",
+            "border": "URL of image", //If type is poster then "paper": "URL of image"
+            "price": "Double",
+            "shipping_price": "Double"
+        }]
+    },
+    
+    "productConfigs": {
+        "key": "String",
+        "types": ["String", "String"],
+        "values": ["Whatever 1", "Whatever 2"]
+    }
+}
+

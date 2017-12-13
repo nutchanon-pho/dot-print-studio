@@ -3,12 +3,13 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import helmet from 'helmet';
 import passport from './middlewares/passport';
+import nconf from './config';
 import HeathCheckRoutes from './routes/HealthCheckRoutes';
 import AuthRoutes from './routes/AuthRoutes';
 import UserRoutes from './routes/UserRoutes';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = nconf.get('port');
 
 app.use(helmet());
 app.use(compression());

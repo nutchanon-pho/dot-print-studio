@@ -9,10 +9,19 @@ module.exports = () => ({
             const query = {
                 username,
             };
-            const userData = await mongoService.findOneMongo(Users, query);
-            return userData;
+            return await mongoService.findOneMongo(Users, query);
         } catch (exception) {
-            return exception;
+            throw exception;
+        }
+    },
+    getUserDataFB: async (uuid) => {
+        try {
+            const query = {
+                'accounts.facebook.uuid': uuid,
+            };
+            return await mongoService.findOneMongo(Users, query);
+        } catch (exception) {
+            throw exception;
         }
     },
 });

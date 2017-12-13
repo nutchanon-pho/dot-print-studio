@@ -1,5 +1,7 @@
-import * as configValues from './config.json';
+import nconf from 'nconf';
 
-module.exports = {
-    getDbConnectionString: () => `mongodb://${configValues.host}:${configValues.port}`,
-};
+if (process.env.NODE_ENV === 'development') {
+    nconf.file({ file: './config/config.json' });
+}
+
+module.exports = nconf;

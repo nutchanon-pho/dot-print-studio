@@ -12,17 +12,17 @@ var _MongoService = require('../services/MongoService');
 
 var _MongoService2 = _interopRequireDefault(_MongoService);
 
+var _UserService = require('../services/UserService');
+
+var _UserService2 = _interopRequireDefault(_UserService);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var saltRounds = 10;
 var mongoService = (0, _MongoService2.default)();
-
-async function getUserData(username) {
-    var query = { username: username };
-    return mongoService.findOneMongo(_Users2.default, query);
-}
+var userService = (0, _UserService2.default)();
 
 function returnUserDataFiltered(userData) {
     var _id = userData._id,
@@ -45,7 +45,7 @@ module.exports = function () {
     return {
         login: async function login(username, inputPassword) {
             try {
-                var queryResult = await getUserData(username);
+                var queryResult = await userService.getUserData(username);
                 if (queryResult != null) {
                     var password = queryResult.accounts.local.password;
 
@@ -62,7 +62,7 @@ module.exports = function () {
         },
         register: async function register(username, password) {
             try {
-                var checkUserExists = await getUserData(username);
+                var checkUserExists = await userService.getUserData(username);
                 if (checkUserExists != null) {
                     throw new Error('user ' + username + ' exists');
                 }
