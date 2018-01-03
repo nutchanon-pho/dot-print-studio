@@ -38,7 +38,7 @@ const mapStateToProps = createSelector(
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onLocaleToggle: (evt) => dispatch(changeLocale(evt.target.value)),
+    onLocaleToggle: (evt, { value }) => dispatch(changeLocale(value)),
     dispatch,
   };
 }

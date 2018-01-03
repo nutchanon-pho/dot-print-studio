@@ -1,56 +1,69 @@
 import * as bcrypt from 'bcrypt';
-import Promise from 'promise';
-import AuthUsers from '../models/authusers';
+import Users from '../models/Users';
+import MongoService from '../services/MongoService';
+import UserService from '../services/UserService';
 
 const saltRounds = 10;
+const mongoService = MongoService();
+const userService = UserService();
 
-module.exports = {
-    login: (kind, username, inputPassword) =>
-        new Promise((resolve, reject) => {
-            const query = {
+function returnUserDataFiltered(userData) {
+    const {
+        _id,
+        username,
+        role,
+        details,
+        orders,
+    } = userData;
+    const result = {
+        _id,
+        username,
+        role,
+        details,
+        orders,
+    };
+    return result;
+}
+
+module.exports = () => ({
+    login: async (username, inputPassword) => {
+        try {
+            const queryResult = await userService.getUserData(username);
+            if (queryResult != null) {
+                const { password } = queryResult.accounts.local;
+                const comparedPassword = await bcrypt.compare(inputPassword, password);
+                if (comparedPassword === true) {
+                    const result = returnUserDataFiltered(queryResult);
+                    return result;
+                }
+            }
+            return null;
+        } catch (error) {
+            throw error;
+        }
+    },
+    register: async (username, password) => {
+        try {
+            const checkUserExists = await userService.getUserData(username);
+            if (checkUserExists != null) {
+                throw new Error(`user ${username} exists`);
+            }
+            const hashResult = await bcrypt.hash(password, saltRounds);
+            const user = {
                 username,
+                isActive: true,
+                role: 'user',
+                accounts: {
+                    local: {
+                        password: hashResult,
+                    },
+                },
             };
-            console.log(query);
-            AuthUsers.find(query, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    console.log(result.local);
-                    const { password } = result.accounts.local;
-                    bcrypt.compare(inputPassword, password).then((res) => {
-                        if (res === true) {
-                            resolve(result);
-                        }
-                        reject(err);
-                    });
-                    resolve(result);
-                }
-            });
-        }),
-
-    register: (kind, username, password) =>
-        new Promise((resolve, reject) => {
-            bcrypt.hash(password, saltRounds, (err, hash) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    const user = {
-                        username,
-                        role: 'user',
-                        accounts: {
-                            local: {
-                                password: hash,
-                            },
-                        },
-                    };
-                    AuthUsers.create(user, (authError, result) => {
-                        if (authError) {
-                            reject(authError);
-                        } else if (result) {
-                            resolve(hash);
-                        }
-                    });
-                }
-            });
-        }),
-};
+            const recordData = await mongoService.createRecord(Users, user);
+            const result = returnUserDataFiltered(recordData);
+            return result;
+        } catch (error) {
+            throw error;
+        }
+    },
+});

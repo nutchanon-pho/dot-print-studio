@@ -1,29 +1,32 @@
-import * as authService from '../services/AuthService';
+import jwt from 'jsonwebtoken';
+import passport from '../middlewares/passport';
+import AuthService from '../services/AuthService';
+
+const authService = AuthService();
 
 module.exports = {
-    init: (app) => {
-        app.post('/auth/login', (req, res) => {
-            try {
-                const { kind, username, password } = req.body;
-                const loginInfo = authService.login(kind, username, password);
-                loginInfo.then((result) => {
-                    res.json(result);
-                }).catch((err) => {
-                    res.status(500).send(err);
-                });
-            } catch (exception) {
-                res.status(500).send();
-            }
+    login: passport.authenticate('local', { session: false }),
+    generateToken: (req, res, next) => {
+        req.token = jwt.sign({
+            username: req.user.username,
+        }, 'server secret', {
+            expiresIn: '1h',
         });
-
-        app.post('/auth/register', (req, res) => {
-            const { kind, username, password } = req.body;
-            const passwordHash = authService.register(kind, username, password);
-            passwordHash.then((result) => {
-                res.send(result);
-            }).catch((err) => {
-                res.status(500).send(`unable to hash key ${err}`);
-            });
+        next();
+    },
+    respond: (req, res) => {
+        res.status(200).json({
+            user: req.user,
+            token: req.token,
         });
+    },
+    register: async (req, res) => {
+        try {
+            const { username, password } = req.body;
+            const result = await authService.register(username, password);
+            res.json(result);
+        } catch (exception) {
+            res.status(500).send(`unable to register ${exception}`);
+        }
     },
 };

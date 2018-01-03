@@ -2,24 +2,24 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import helmet from 'helmet';
-import * as setupController from './controllers/setupControllers';
-import * as authController from './controllers/AuthControllers';
+import passport from './middlewares/passport';
+import nconf from './config';
+import HeathCheckRoutes from './routes/HealthCheckRoutes';
+import AuthRoutes from './routes/AuthRoutes';
+import UserRoutes from './routes/UserRoutes';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = nconf.get('port');
 
-// need to seperate middleware here
 app.use(helmet());
+app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(compression());
+app.use(passport.initialize());
 
-// need to seperate routes here
-setupController.setAdmin(app);
-authController.init(app);
-
-app.get('/ping', (req, res) => {
-    res.send('pong');
-});
+// routes
+app.use('/healthCheck', HeathCheckRoutes);
+app.use('/auth', AuthRoutes);
+app.use('/user', UserRoutes);
 
 app.listen(port);

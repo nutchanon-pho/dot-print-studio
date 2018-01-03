@@ -4,70 +4,85 @@ var _bcrypt = require('bcrypt');
 
 var bcrypt = _interopRequireWildcard(_bcrypt);
 
-var _promise = require('promise');
+var _Users = require('../models/Users');
 
-var _promise2 = _interopRequireDefault(_promise);
+var _Users2 = _interopRequireDefault(_Users);
 
-var _authusers = require('../models/authusers');
+var _MongoService = require('../services/MongoService');
 
-var _authusers2 = _interopRequireDefault(_authusers);
+var _MongoService2 = _interopRequireDefault(_MongoService);
+
+var _UserService = require('../services/UserService');
+
+var _UserService2 = _interopRequireDefault(_UserService);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var saltRounds = 10;
+var mongoService = (0, _MongoService2.default)();
+var userService = (0, _UserService2.default)();
 
-module.exports = {
-    login: function login(kind, username, inputPassword) {
-        return new _promise2.default(function (resolve, reject) {
-            var query = {
-                username: username
-            };
-            console.log(query);
-            _authusers2.default.find(query, function (err, result) {
-                if (err) {
-                    reject(err);
-                } else {
-                    console.log(result.local);
-                    var password = result.accounts.local.password;
+function returnUserDataFiltered(userData) {
+    var _id = userData._id,
+        username = userData.username,
+        role = userData.role,
+        details = userData.details,
+        orders = userData.orders;
 
-                    bcrypt.compare(inputPassword, password).then(function (res) {
-                        if (res === true) {
-                            resolve(result);
-                        }
-                        reject(err);
-                    });
-                    resolve(result);
+    var result = {
+        _id: _id,
+        username: username,
+        role: role,
+        details: details,
+        orders: orders
+    };
+    return result;
+}
+
+module.exports = function () {
+    return {
+        login: async function login(username, inputPassword) {
+            try {
+                var queryResult = await userService.getUserData(username);
+                if (queryResult != null) {
+                    var password = queryResult.accounts.local.password;
+
+                    var comparedPassword = await bcrypt.compare(inputPassword, password);
+                    if (comparedPassword === true) {
+                        var result = returnUserDataFiltered(queryResult);
+                        return result;
+                    }
                 }
-            });
-        });
-    },
-
-    register: function register(kind, username, password) {
-        return new _promise2.default(function (resolve, reject) {
-            bcrypt.hash(password, saltRounds, function (err, hash) {
-                if (err) {
-                    reject(err);
-                } else {
-                    var user = {
-                        username: username,
-                        role: 'user',
-                        accounts: {
-                            local: {
-                                password: hash
-                            }
-                        }
-                    };
-                    _authusers2.default.create(user, function (authError, result) {
-                        if (authError) {
-                            reject(authError);
-                        } else if (result) {
-                            resolve(hash);
-                        }
-                    });
+                return null;
+            } catch (error) {
+                throw error;
+            }
+        },
+        register: async function register(username, password) {
+            try {
+                var checkUserExists = await userService.getUserData(username);
+                if (checkUserExists != null) {
+                    throw new Error('user ' + username + ' exists');
                 }
-            });
-        });
-    }
+                var hashResult = await bcrypt.hash(password, saltRounds);
+                var user = {
+                    username: username,
+                    isActive: true,
+                    role: 'user',
+                    accounts: {
+                        local: {
+                            password: hashResult
+                        }
+                    }
+                };
+                var recordData = await mongoService.createRecord(_Users2.default, user);
+                var result = returnUserDataFiltered(recordData);
+                return result;
+            } catch (error) {
+                throw error;
+            }
+        }
+    };
 };

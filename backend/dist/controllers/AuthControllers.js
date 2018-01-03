@@ -1,43 +1,47 @@
 'use strict';
 
+var _jsonwebtoken = require('jsonwebtoken');
+
+var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
+
+var _passport = require('../middlewares/passport');
+
+var _passport2 = _interopRequireDefault(_passport);
+
 var _AuthService = require('../services/AuthService');
 
-var authService = _interopRequireWildcard(_AuthService);
+var _AuthService2 = _interopRequireDefault(_AuthService);
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var authService = (0, _AuthService2.default)();
 
 module.exports = {
-    init: function init(app) {
-        app.post('/auth/login', function (req, res) {
-            try {
-                var _req$body = req.body,
-                    kind = _req$body.kind,
-                    username = _req$body.username,
-                    password = _req$body.password;
-
-                var loginInfo = authService.login(kind, username, password);
-                loginInfo.then(function (result) {
-                    res.json(result);
-                }).catch(function (err) {
-                    res.status(500).send(err);
-                });
-            } catch (exception) {
-                res.status(500).send();
-            }
+    login: _passport2.default.authenticate('local', { session: false }),
+    generateToken: function generateToken(req, res, next) {
+        req.token = _jsonwebtoken2.default.sign({
+            username: req.user.username
+        }, 'server secret', {
+            expiresIn: '1h'
         });
-
-        app.post('/auth/register', function (req, res) {
-            var _req$body2 = req.body,
-                kind = _req$body2.kind,
-                username = _req$body2.username,
-                password = _req$body2.password;
-
-            var passwordHash = authService.register(kind, username, password);
-            passwordHash.then(function (result) {
-                res.send(result);
-            }).catch(function (err) {
-                res.status(500).send('unable to hash key ' + err);
-            });
+        next();
+    },
+    respond: function respond(req, res) {
+        res.status(200).json({
+            user: req.user,
+            token: req.token
         });
+    },
+    register: async function register(req, res) {
+        try {
+            var _req$body = req.body,
+                username = _req$body.username,
+                password = _req$body.password;
+
+            var result = await authService.register(username, password);
+            res.json(result);
+        } catch (exception) {
+            res.status(500).send('unable to register ' + exception);
+        }
     }
 };

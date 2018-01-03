@@ -16,33 +16,40 @@ var _helmet = require('helmet');
 
 var _helmet2 = _interopRequireDefault(_helmet);
 
-var _setupControllers = require('./controllers/setupControllers');
+var _passport = require('./middlewares/passport');
 
-var setupController = _interopRequireWildcard(_setupControllers);
+var _passport2 = _interopRequireDefault(_passport);
 
-var _AuthControllers = require('./controllers/AuthControllers');
+var _config = require('./config');
 
-var authController = _interopRequireWildcard(_AuthControllers);
+var _config2 = _interopRequireDefault(_config);
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+var _HealthCheckRoutes = require('./routes/HealthCheckRoutes');
+
+var _HealthCheckRoutes2 = _interopRequireDefault(_HealthCheckRoutes);
+
+var _AuthRoutes = require('./routes/AuthRoutes');
+
+var _AuthRoutes2 = _interopRequireDefault(_AuthRoutes);
+
+var _UserRoutes = require('./routes/UserRoutes');
+
+var _UserRoutes2 = _interopRequireDefault(_UserRoutes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
-var port = process.env.PORT || 3000;
+var port = _config2.default.get('port');
 
-// need to seperate middleware here
 app.use((0, _helmet2.default)());
+app.use((0, _compression2.default)());
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
-app.use((0, _compression2.default)());
+app.use(_passport2.default.initialize());
 
-// need to seperate routes here
-setupController.setAdmin(app);
-authController.init(app);
-
-app.get('/ping', function (req, res) {
-    res.send('pong');
-});
+// routes
+app.use('/healthCheck', _HealthCheckRoutes2.default);
+app.use('/auth', _AuthRoutes2.default);
+app.use('/user', _UserRoutes2.default);
 
 app.listen(port);
