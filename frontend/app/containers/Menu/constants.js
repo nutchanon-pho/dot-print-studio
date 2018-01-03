@@ -27,3 +27,4 @@ export const menuList = [
     link: '/ourStory',
   },
 ];
+

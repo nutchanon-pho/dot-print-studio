@@ -62,6 +62,7 @@ export default class App extends Component {
 
   hideSidebar = () => this.state.sidebarVisible ? this.setState({ sidebarVisible: false }) : null;
 
+
   render() {
     const { sidebarVisible } = this.state;
     return (
@@ -104,4 +105,23 @@ export default class App extends Component {
       </AppWrapper>
     );
   }
+
+// export default function App() {
+//   return (
+//     <AppWrapper>
+//       <Helmet
+//         titleTemplate="Dot Print"
+//         defaultTitle="Dot Print"
+//       >
+//         <meta name="description" content="Dot Print" />
+//       </Helmet>
+//       <Switch>
+//         <Route exact path="/" component={HomePage} />
+//         <Route exact path="/shop" component={ShopPage} />
+//         <Route path="/admin" component={AdminPage} />
+//         <Route path="" component={NotFoundPage} />
+//       </Switch>
+//     </AppWrapper>
+//   );
+
 }
