@@ -1,5 +1,5 @@
 FROM node:carbon
-ENV NODE_ENV = "DOCKER"
+ENV NODE_ENV "docker"
 # Create app directory
 WORKDIR /opt/src/backend/app
 

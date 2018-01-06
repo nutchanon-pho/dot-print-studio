@@ -1,0 +1,11 @@
+{
+    "port": 8080,
+    "facebook": {
+        "client-id": "133894837284193",
+        "client-secret": "29e313fd23059f2688feff103d0b4d46"
+    },
+    "mongo": {
+        "host": "mongo",
+        "port": "27017"
+    }
+}

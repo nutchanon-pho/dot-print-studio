@@ -11,16 +11,25 @@ services:
     ports:
       - "5432:5432"
   
-  dot-print-frontend:
-    image: kkarczmarczyk/node-yarn
-    ports:
-     - "80:3000"
-    volumes:
-     - ./frontend:/home/app/dot-print-frontend
-     - /home/app/dot-print-frontend/node_modules
-    command: bash -c "cd /home/app/dot-print-frontend && yarn install && npm start"
-
-  # dot-print-backend:
-  #   image: dot-print-backend:latest
+  # dot-print-frontend:
+  #   image: kkarczmarczyk/node-yarn
   #   ports:
-  #     - "3000:3000"
+  #    - "80:3000"
+  #   volumes:
+  #    - ./frontend:/home/app/dot-print-frontend
+  #    - /home/app/dot-print-frontend/node_modules
+  #   command: bash -c "cd /home/app/dot-print-frontend && yarn install && npm start"
+
+  dot-print-backend:
+    image: dot-print-backend:latest
+    depends_on:
+      - mongo
+      - postgres
+    # environment:
+      # - NODE_ENV=docker
+    # volumes:
+    #   - ./backend:/home/app/dot-print-backend
+    #   - /home/app/dot-print-backend/node_modules
+    # command: bash -c "cd /home/app/dot-print-backend && npm install && npm run start-docker"
+    ports:
+      - "3000:8080"
