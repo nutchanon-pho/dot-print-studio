@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import Menu from 'containers/Menu';
@@ -61,19 +60,6 @@ class ShopPage extends React.PureComponent { // eslint-disable-line react/prefer
 
   render() {
     const { match: { params: { step } } } = this.props;
-
-import React from 'react';
-import { Helmet } from 'react-helmet';
-import Menu from 'containers/Menu';
-import { Container, Grid, Icon } from 'semantic-ui-react';
-import Footer from 'components/Footer';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
-
-
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  render() {
-
     return (
       <article>
         <Helmet>
@@ -81,7 +67,6 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
           <meta name="description" content="" />
         </Helmet>
         <Menu />
-
         <Segment basic style={{ marginTop: '150px', minHeight: '350px' }}>
           <Step.Group fluid>
             <Step active={step === '1'}>
@@ -111,28 +96,11 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
             <Route exact path="/shop/3" component={SummaryShopPage} />
           </Switch>
         </Segment>
-
-//         <Container style={{ marginTop: '200px', height: '300px' }}>
-//           <Grid stackable divided columns={2}>
-//             <Grid.Column textAlign="center">
-//               <div><Icon name="add circle" size="massive" /></div>
-//               <br />
-//               <div><h1><FormattedMessage {...messages.upload} /></h1></div>
-//             </Grid.Column>
-//             <Grid.Column textAlign="center">
-//               <div><Icon name="image" size="massive" /></div>
-//               <br />
-//               <div><h1><FormattedMessage {...messages.chooseFromGallery} /></h1></div>
-//             </Grid.Column>
-//           </Grid>
-//         </Container>
-
         <Footer />
       </article>
     );
   }
 }
-
 
 ShopPage.propTypes = {
 };
@@ -149,8 +117,3 @@ export default compose(
   withReducer,
   withConnect,
 )(ShopPage);
-
-// HomePage.propTypes = {
-// };
-
-
